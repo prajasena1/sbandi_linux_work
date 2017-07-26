@@ -1,0 +1,1757 @@
+BEGIN_UNIX_CMD_HELP_FILE
+----------------------
+google search documentation of Linux Source Docs
+    net.core.rmem_max site:lxr.free-electrons.com/source type:txt
+----------------------
+http://coliru.stacked-crooked.com/
+g++-4.8 -std=c++11 -O2 -Wall -pedantic -pthread main.cpp && ./a.out
+
+gcc 4.6
+g++ -std=c++0x -Wall -g 
+-----------------------------------------------------
+list all manual key info of section-8
+man -k \(8\)
+--- --- -----
+update whatis databse
+    makewhatis -u
+---------------
+umask
+    Octal value : Permission
+    0 : read, write and execute
+    1 : read and write
+    2 : read and execute
+    3 : read only
+    4 : write and execute
+    5 : write only
+    6 : execute only
+    7 : no permissions
+
+umask 022
+File base permissions 666
+    umask 022 results in the file permissions 644
+
+Dir base permissions 777
+    umask 022 results in the dir permissions 755
+
+---------------
+
+pydoc
+perldoc
+    topics
+    cd /usr/share/man/
+    fd "*3pm*"|sed 's/^.*\/\(.*\)\.3pm.*/\1/'|sort -u > perl_help_topics
+    for each topic - get help either by
+    man topic or perldoc topic
+---------------
+shebang poundbang
+---------------
+/usr/share/doc      doc
+/usr/src/debug      debuginfo
+/usr/src            source
+---------------
+virtual window (alternative tmux)
+screen               (1)  - screen manager with VT100/ANSI terminal emulation
+
+screen -r       reattach screen
+screen -ls      list of screens
+
+C-a ?       (help) Show key bindings
+C-a i       Show info about this window.
+
+C-a d       detach (reattachable later)
+C-a K       kill screen
+
+C-a H       History log in home dir or at startup screen -L
+
+C-a C       (clear)       Clear the screen.
+C-a l       Fully refresh current window.
+
+C-a s       (xoff)        Send a control-s to the current window.
+C-a q       (xon)         Send a control-q to the current window.
+C-a z       (suspend)     Suspend screen.  Your system must support BSD-style job-control.
+
+
+C-a r       (wrap)        Toggle the current window’s line-wrap setting (turn the current window’s automatic margins on and off).
+
+C-a :       (colon)       Enter command line mode.
+
+C-a *       (displays)    Show a listing of all currently attached displays.
+
+
+Nested screens
+    C-a c       new screen from existing screen
+    C-a n       move to next screen
+    C-a p       move to prev screen
+
+ On screen shell
+    Customization can also be done ’on-line’.
+    To enter the command mode type ‘C-a :’
+    (see section CUSTOMIZATION on man pages)
+
+---------------
+info --vi-keys libc 'Resource Usage'
+
+info
+    <SPC>       Down or d
+    <BACKSPACE> UP  or b
+    / or ?
+
+    h   for help
+    x           Close this help window.
+
+    ESC d       Go to the main `directory' node.
+
+    ESC m       Pick a menu item specified by name. (for completions ?)
+    C-x g       Go to a node specified by name. (for completions ?)
+
+    ESC >   first page of this node (or ESC b)
+    ESC <   last page of this node  (or ESC e)
+
+    [           Go to the previous node in the document.
+        or p       (prev-node)                     Select the Prev node
+    ]           Go to the next node in the document.
+        or C-x n   (next-node)                     Select the Next node
+
+    g       (first-node)                    Select the first node in this file
+        or t       (top-node)                      Select the node `Top' in this file
+        or ESC t       Go to the top node of this document.
+    G       (last-node)                     Select the last node in this file
+
+    ESC g   Select the menu item or note reference appearing on this line.
+    ESC r   Reads the name of a note cross reference in the echo area and selects its node. Completion is available while reading the cross reference label.
+
+    C-x u       Go up one level.
+
+    l       (history-node last node)        Select the most recently selected node
+
+    C-x C-b (list-visited-nodes)            Make a window containing a menu of all of the currently visited nodes
+
+    d       (scroll-half-screen-down)       Scroll down by half screen size
+    u       (scroll-half-screen-up)         Scroll up by half screen size
+    f       (scroll-forward-page-only)      Scroll forward in this window staying within node
+    b       (scroll-backward)               Scroll backward in this window
+
+    TAB         Skip to the next hypertext link.
+    C-x RET     Follow the hypertext link under the cursor.
+
+    C-x o   (next-window)                   Select the next window (other window)
+
+    C-x i       Search for a specified string in the index, and
+                  select the node referenced by the first entry found.
+        or i       (index-search)                  Look up a string in the index for this file
+    C-x ,   (next-index-match)              Go to the next matching index item from the last `C-x i' command
+
+    C-g         Cancel the current operation.
+
+    C-x 1   (keep-one-window)               Delete all other windows
+
+    ESC 0   (last-menu-item)                Select the last item in this node's menu
+    ESC 1 .. ESC 9  (menu-digit)            Select this menu item
+
+    /       (search)                        Read a string and search for it
+    ?       (search-backward)               Read a string and search backward for it
+    n       (search-next)                   Repeat last search in the same direction
+    N       (search-previous)               Repeat last search in the reverse direction
+
+    S       (search-case-sensitively)       Read a string and search for it case-sensitively
+    s       (search)                        Read a string and search for it
+    {       (search-previous)               Repeat last search in the reverse direction
+    }       (search-next)                   Repeat last search in the same direction
+
+    C-a     (beginning-of-line)             Move to the start of the line
+    C-e     (down-line)                     Scroll down by lines
+    C-e     (echo-area-end-of-line)         Move to the end of this line
+    C-f     (echo-area-forward)             Move forward a character
+
+    C-i     redraw
+
+    Echo area   list completions ?
+                Scroll completions window ESC C-v
+    Echo area completion <SPC>
+------------------------------------------
+bash array
+array=("something to search for" "a string" "test2000")
+num_elements=${#array[@]}
+
+#iterate over array
+for i in "${array[@]}"
+do
+    echo "element = $i"
+done
+
+https://stackoverflow.com/questions/10586153/split-string-into-an-array-in-bash
+------------------------------------------
+bash  Associative arrays example
+declare -A SERVER_TARGET_TYPES
+SERVER_TARGET_TYPES=( 
+[ClusterServer]=Cluster
+[PpBlade]=ProtocolProcessor
+[SquidBlade]=SquidCluster
+)
+
+echo ${SERVER_TARGET_TYPES[ClusterServer]}
+echo ${SERVER_TARGET_TYPES[*]}
+echo ${SERVER_TARGET_TYPES[@]}
+
+#iterate over associate array
+for i in "${!SERVER_TARGET_TYPES[@]}"
+do
+  echo "key  : $i"
+  echo "value: ${SERVER_TARGET_TYPES[$i]}"
+done
+
+------------------------------------------
+bash
+SHELL BUILTIN COMMANDS
+------------------------------------------
+current unix timestamp $ date +%s
+unix timestamp for given date $ date -d "Oct 21 1973" +%s
+date time for given unix timestamp $ date --date @Seconds_since_Epoch
+------------------------------------------
+
+## unix help
+ftp://ftp.vim.org/pub/vim/unix/
+
+priocntl
+nice
+
+tkdiff
+
+gmtime
+getdate
+mktime
+strftime
+
+------------------------------------------
+public unix access
+grex.cyberspace.org
+Public Linux sdf.lonestar.org
+------------------------------------------
+
+ctags  --list-kinds
+ctags --list-kinds=python
+
+vim: ctags cmd taglist ------------------
+		Tlist
+		TlistClose
+		TlistUpdate
+		TlistSync
+		TlistShowPrototype
+		TlistShowTag
+		TlistSessionSave
+		TlistSessionLoad
+  <CR>          Jump to the location where the tag under cursor is
+                defined.
+  p             Display the tag definition in the file window and
+                keep the cursor in the taglist window itself.
+   <Space>       Display the prototype of the tag under the cursor.
+  x             Zoom-in or Zoom-out the taglist window
+  +             Open a fold
+  -             Close a fold
+  *             Open all folds
+  =             Close all folds
+  q             Close the taglist window
+  ?             Display help
+
+-------------------------------------------------------------
+
+32 bit int unsigned max	: 2^32-1
+32 bit int signed max: 2^31-1  (MSbit is for sign : 0 for +ve, 1 for negative 
+Negative numbers in hex editors:
+if the MSbit is 1 for signed int then it will be -ve number 
+workout value will be  value-2^32
+
+or striff of MSbit from value - 2^31
+
+-------------------------------------------------------------
+linux box: shannon
+/prdbatch/tstones/linux/bin	hexedit
+
+/prdbuild/docs/useful_scripts.lst
+/tools/ccover/bin/
+
+ccm_delete_project.pl GENEVA-bandi5.4TS.2L -q
+-------------------------------------------------------------
+Use <<'EOF' to stop bash interpolating the here document.
+
+-------------------------------------------------------------
+
+sqlplus -silent "sys/sys as sysdba" <<EOF
+select username from all_users order by 1;
+EOF
+
+-------------------------------------------------------------
+CTRL-Z and bg
+jobs 
+To make the job to run in nohup mode
+disown -h [job-spec] here [job-spec] is the job number (like %1 for the first running job. find the job number using jobs)
+
+Job identifiers
+    Notation    Meaning
+    %N  Job number [N]
+    %S  Invocation (command-line) of job begins with string S
+    %?S Invocation (command-line) of job contains within it string S
+    %%  "current" job (last job stopped in foreground or started in background)
+    %+  "current" job (last job stopped in foreground or started in background)
+    %-  Last job
+    $!  Last background process
+
+get the process ids of every background job.
+    jobs -p
+
+    for x in `jobs -p`; do kill -9 $x; done
+
+
+#search for ps whose cmd name contains umd
+pgrep umd
+#list cmd name
+pgrep -l umd
+#search exact umd
+pgrep -lx umd
+------------------------------------------
+#this command also creates a file called /etc/ld.so.cache which is used to speed up linking
+ldconfig
+
+#prints the ld cache
+ldconfig -p
+
+man ld-linux (man ld.so)
+    useful environment variables LD_LIBRARY_PATH LD_DEBUG
+
+/lib/ld-linux.so.2
+or
+/lib64/ld-2.12.so
+
+export LD_DEBUG=help; man; unset LD_DEBUG
+-------------------------------------------------------------
+The LD_PRELOAD allow an extra library not specified in the executable to be loaded:
+export LD_PRELOAD=/home/sbandi/dirhard/libdiehard.so
+-------------------------------------------------------------
+ldd List Dynamic Dependencies
+
+#report missing functions
+ldd -d /path/to/executable
+
+#report missing objects
+ldd -r /path/to/executable
+
+nm name space (all functions, global, static vars, FILEs etc) of an object/binary  file
+-------------------------------------------------------------
+ls -F
+    Append a ‘/’ for directories, a ‘=’ for socket files, a ‘*’ for executable files and a ‘|’ for FIFO’s
+-------------------------------------------------------------
+
+tree 
+    tree -psDh permissions, size in -h (human readable format), Date last modification
+    -d list dirs only
+    -l Follows  symbolic  links  if they point to directories
+    -x Stay on the current file-system only.  Ala find -xdev
+
+-------------------------------------------------------------
+find files of size bigger than 5M and long list size in human readable format.
+-xdev Limit the search to current file system only
+    find . -xdev -name "*" -size 5M -exec ls -lh  {} \;
+-------------------------------------------------------------
+
+ssh-keygen –t dsa 
+cat ~/.ssh/id_dsa.pub | ssh <username>@cvs.eng.idirect.net addkey
+
+ssh-copy-id remote-machine
+This one-liner copies your public-key, that you generated with ssh-keygen (either SSHv1 file identity.pub or SSHv2 file id_rsa.pub) to the remote-machine and places it in ~/.ssh/authorized_keys file. This ensures that the next time you try to log into that machine, public-key authentication (commonly referred to as "passwordless authentication.") will be used instead of the regular password authentication
+
+or manual
+ssh remote-machine 'cat >> .ssh/authorized_keys' < .ssh/identity.pub
+
+-----------------------------------
+ssh-keygen -R [hostname]
+ssh-keygen -R [ip_address]
+ssh-keygen -R [hostname],[ip_address]
+
+ssh-keyscan -H [hostname],[ip_address] >> ~/.ssh/known_hosts
+ssh-keyscan -H [ip_address] >> ~/.ssh/known_hosts
+ssh-keyscan -H [hostname] >> ~/.ssh/known_hosts
+-----------------------------------
+ssh -o "StrictHostKeyChecking no"
+scp -o "StrictHostKeyChecking no"
+
+-------------------------------------------------------------
+Step 1: ssh-keygen -t dsa
+Step 2: Then, copy and paste the content of the local ~/.ssh/id_dsa.pub file into the file ~/.ssh/authorized_keys on the remote host
+Step 3: The remote .ssh directory should be only readable/writable/accessible by you: % chmod 700 ~/.ssh
+
+ssh prompts for password despite .ssh/authorized_keys 
+    if .ssh dir permissons and .ssh/authorized_keys file permissions are incorrect
+------------------------------------------------------------
+ssh tunnelling
+Example-1 : ssh -L 5306:remoteserver.com:3306 remoteuser@remoteserver.com
+    Local port 5306 is forwarded (ssh tunnelled) to remoteserver.com:3306
+
+Exmaple-2: ssh -L 8666:ircserver.org:6666 remoteuser@remoteserver.com
+    ircserver.org:6666 is accesible using remoteuser@remoteserver.com.
+
+In the above 2 cases, local port is 127.0.0.1:port (or localhost:port)
+
+Example-3: ssh -L 192.168.1.1:8666:ircserver.org:6666 remoteuser@remoteserver.com
+    localport is 192.168.1.1:8666 so it can be accessed by other clients the LAN.
+
+Reverse port forwarding
+ssh -R [bind_address:]port:host:hostport user@host
+example:
+    ssh -R 8022:localhost:22 username@my.home.ip.address
+    Then
+        ssh -p 8022 username@localhost
+-------------------------------------------------------------
+shuf                 (1)  - generate random permutations
+
+Example: 
+        1 random number
+        shuf -i 1-900000 -n 1
+        10 random number
+        shuf -i 1-900000 -n 10
+-------------------------------------------------------------
+
+
+#openssl-devel package is missing in development environment. You need to install it manually
+cd /etc/yum.repos.d/
+scp 172.20.136.160:/etc/yum.repos.d/local-media.repo .
+scp 172.20.136.160:/etc/yum.repos.d/mrepo.repo .
+yum install openssl-devel
+
+---------------------------
+
+clean yum cache
+    yum clean all
+    yum update -y
+
+-----------------------------
+
+----------------------------
+rpm -ql packname  # query list
+rpm -qa     # display all packs
+rpm -qa --last  #recently installed
+
+rpm -q --whatprovides package_name
+    rpm -q --whatprovides idirect-release
+
+options
+-i | --install
+-U|--upgrade
+-h, --hash Print  50  hash  marks  as the package archive is unpacked. Use with -v|--verbose for a nicer display
+-R, --requires List capabilities on which this package depends.
+
+rpm -iUvh package_name
+        
+
+#package  info
+rpm -qip package_name
+#dependencies
+rpm -qRp package_name
+
+rpm -q --qf "%{NAME}-%{VERSION}-%{RELEASE}-%{ARCH}\n" glibc
+
+rpm -q --filesbypkg -p <package.rpm>
+rpm -qa --filesbypkg > pkg_list
+
+#find which rpm installs /usr/bin/umd 
+rpm -qf /usr/bin/umd
+rpm -qf `which umd`
+
+#verify -V rpm -qV package-name
+
+rpm --querytags
+/bin/rpm -q --queryformat "[%{DESCRIPTION}]" kmod-drbd
+rpm -q --queryformat "[%{VERSION}-%{RELEASE}]" kernel
+
+rpmbuild             (8)  - Build RPM Package(s)
+C:\Users\sbandi\Documents\iDirect\GX\Build
+----------------------------
+#add epel repo to get epel rpms on RHEL/CentOs
+sudo  rpm -ivh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+
+----------------------------
+infocmp | grep colors
+vim "+runtime syntax/colortest.vim"
+
+install ncurses-term
+
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+        export TERM='xterm-256color'
+else
+        export TERM='xterm-color'
+fi
+
+----------------------------
+
+color display
+----------------------------
+
+change colors on an incidental basis:
+
+The escape sequence ESC [ SPEC1 ; … m changes the text attributes (color, bold, etc.) of subsequently written characters. This is one of the ANSI terminal escape sequences. Each SPEC can be one of the following (the list is not exhaustive):
+
+0 to switch to the default colors.
+1 to turn boldface on.
+30 through 37 to set the foreground color (black, red, green, yellow, blue, magenta, cyan, gray).
+40 through 47 to set the background color (same list).
+
+Color   Foreground  Background
+black   30          40
+red     31          41
+green   32          42
+yellow  33          43
+blue    34          44
+magenta 35          45
+cyan    36          46
+white   37          47
+
+echo -e '\E[33;44m'"yellow text on blue background"; tput sgr0
+echo -e '\E[1;33;44m'"BOLD yellow text on blue background"; tput sgr0
+echo -e "\033[4mThis is underlined text.\033[0m"
+echo -e "\033[1mThis is bold text.\033[0m"
+## \033[1m ... \033[0m. The \033 represents an escape, the "[1" turns on the bold attribute, while the "[0" switches it off. The "m" terminates each term of the escape sequence. 
+alias Reset="tput sgr0"
+
+COLOR_DEFAULT="\033[0m"
+BOLD_ON="\033[1m"
+DARKER_ON="\033[2m"
+UNDERLINE_ON="\033[4m"
+STRIKE_ON="\033[7m"
+##Colors
+COLOR_BLACK="\033[30m"
+COLOR_RED="\033[31m"
+COLOR_GREEN="\033[32m"
+COLOR_BROWN="\033[33m"
+COLOR_BLUE="\033[34m"
+COLOR_MAGENTA="\033[35m"
+COLOR_CYAN="\033[36m"
+COLOR_LIGHTGRAY="\033[37m"
+##backgrounds
+BG_BLACK="\033[40m"
+BG_RED="\033[41m"
+BG_GREEN="\033[42m"
+BG_BROWN="\033[43m"
+BG_BLUE="\033[44m"
+BG_MAGENTA="\033[45m"
+BG_CYAN="\033[46m"
+BG_LIGHTGRAY="\033[47m"
+
+echo -e "\n${COLOR_GREEN}Completed the diesel set-up${COLOR_DEFAULT}"
+
+setterm -term linux -back <background_colour> -fore <text_color> -clear
+from the colors, you can chose from (both fore- and background):
+
+black|blue|green|cyan|red|magenta|yellow|white|default
+for more options:
+
+setterm -help
+-----------------------------------------------------------------------
+make LOCAL_CFLAGS='-DDEBUG -g' base
+
+make MAKE_VERBOSE=1
+make VERBOSE=1=1
+
+make TARGET_ID=hub
+make TARGET_ID=nuevo
+
+-----------------------------------------------------------------------
+.run shell script generated by makeself
+makeself    Utility to create self-extracting tar.gz archives.
+
+makeself.sh is a small shell script that generates a self-extractable compressed tar archive from a directory.
+The resulting file appears as a shell script (many of those have a .run suffix), and can be launched as is.
+The archive will then uncompress itself to a temporary directory and an optional arbitrary command will be executed
+(for example an installation script).
+-----------------------------------------------------------------------
+strace -p 11752 -o /tmp/x
+strace -f -o/tmp/x -s 256 /var/run/idirect/cfgserver -cp 2001 sa
+
+You can do an "strace -f PROGRAMNAME" in a sandbox (not a machine that you care about!) to see what's going on; 
+    this will show you all of the system calls made by this program and its children. 
+    If you find a lot of tasks created (not likely), you can use something like "strace -ff -o FILE PROGRAMNAME" to have all of strace output written to separate files for each task.
+
+strace -s 256 -e trace=open,close,read,write,connect,accept -p pid -o /var/lib/pgsql/strace_out
+
+Example to print file activity for CAFoundry: 
+    strace -s 256 -e trace=open,close,read,write -o /var/lib/pgsql/strace_out -p `ps --no-headers -o pid -C CAFoundry`
+
+Performance analysis: 
+    -T  Show the time spent in system calls.
+    -c  Count time, calls, and errors for each system call and report a summary  on  program exit.
+-----------------------------------------------------------------------
+
+nm -C /var/run/idirect/publisher | grep FileWriter
+
+
+vmware vsphere server 172.20.136.27
+10.1.8.18 root l4bl4b (L4BL4B - lower case)
+
+create vm using vsphere client
+cd /etc/sysconfig/networking/devices/; vi ifcfg-eth0    # ip address
+cd /etc/sysconfig/network
+cd /etc/udev/rules.d/; rm 70-persistent-net.rules; reboot
+
+------------------------------------------
+lsof
+    +L  to see the link count of open files in the NLINK Column
+    +L1 to display only files whose link count is less than 1 (i.e., zero)
+
+    -n  turn off name lookup
+    -P  suppress port service name lookp
+    -l  suppress UID to login name lookup
+
+    -p  exclude(^)|select PIDs (more by comma separated)
+    -c  command (multiple commands with -c cmd1 -c cmd2 ...)
+
+    -N       This option selects the listing of NFS files
+
+    -F Format the output
+
+    -r repeat mode is endless (default fifteen secs)
+    -r 5 repeat for every 5 secs
+
+    -R  list the Parent Process IDentification number in the PPID column.
+
+    -i inet sockets
+        [46][protocol][@hostname|hostaddr][:service|port]
+        
+        46 specifies the IP version, IPv4 or IPv6
+        protocol is a protocol name - TCP, UDP
+        hostname is an Internet host name.
+        hostaddr is a numeric Internet IPv4 address in dot form; or 
+            an IPv6 numeric address in colon form, enclosed in brackets
+        service is an /etc/services name
+        port is a port number, or a list of them.
+
+    -s alone  directs  lsof to display file size at all times.
+    -s [p:s]  protocol : state
+        -iTCP -sTCP:LISTEN
+        -iUDP -sUDP:Idle
+
+        Some common TCP state names are: CLOSED, IDLE, BOUND, LISTEN, ESTABLISHED, 
+        SYN_SENT, SYN_RCDV, ESTABLISHED, CLOSE_WAIT, FIN_WAIT1, CLOSING, LAST_ACK,  FIN_WAIT_2,  and  TIME_WAIT.
+
+        Two common UDP state names are Unbound and Idle
+
+    -u  selects the listing of files for the user whose login names or user ID numbers are in the comma-separated set
+
+    -U  selects the listing of UNIX domain socket files.
+
+Examples
+--------
+    # pid
+    lsof -p 23911,1924
+
+    # command
+    lsof -c nms_ctrl -c umd
+
+    #x extended regular expr
+    lsof -c /'nms.*'/x
+
+    #i ignore case
+    lsof -c /'NMS.*'/ix
+
+    #List connections that use the TCP listening or established on port 22 (remote or local)
+    lsof -i TCP:22
+
+    # List connections made by the host 172.20.136.159 in local machine
+    lsof -i @172.20.136.159
+
+    #List connections made by the host 3ffe: 1 :: 1ebc in local machine using port 1234 (port referring to the remote host).
+    #ipv6 enclosed in brackets
+    lsof -i @[3ffe:1ebc::1]:1234
+
+    #List connections using the protocol TCP performed by the host positron.cat.cbpf.br on the local machine using port 1017 (port referring to the remote host). 
+    lsof -i TCP@positron.cat.cbpf.br:1017
+
+    #List connections using the protocol TCP performed by the host 152.84.253.13 on the local machine using 
+    #ports (Relating to remote host) from 1 to 10, or door 99, or door referring to SMTP service.
+    lsof -i tcp@152.84.253.13: 1-10, smtp, 99 
+
+    # based on the service
+    lsof -i tcp:ssh
+    lsof -i tcp:http,https
+
+------------------------------------------
+tracepath   traces path to a network host discovering MTU along this path
+traceroute  print the route packets trace to network host
+nslookup    query Internet name servers interactively
+dig         (domain information groper) tool for interrogating DNS name servers
+------------------------------------------
+netstat -a -p -e
+
+#Find out which programs listen on which TCP ports
+netstat -tlnpe
+    -t causes netstat to only list information about TCP sockets.
+    -u causes netstat to only list information about UDP Sockets
+    -x causes netstat to only list information about UNIX Domain Sockets
+
+    -l causes netstat to only list information about listening sockets.
+        (use -a for both server and client connections)
+    -n causes netstat not to do reverse lookups on the IPs
+    -p causes netstat to print the PID and name of the program to which the socket belongs (requires root).
+    -e extended info
+netstat -s
+    --statistics  Display summary statistics for each protocol
+
+# kernel routing table
+netstat -nr
+ipcalc (On RHEL)
+arping               (8)  - send ARP REQUEST to a neighbour host
+mtr                  (8)  - a network diagnostic tool
+----------------------------------------------------------------
+NetEm - Network Emulator
+----------------------------------------------------------------
+fuser - identify processes using files or sockets
+----------------------------------------------------------------
+# dig Mail eXchange record
+dig -t MX www.google.com
+# dig Name Server record
+dig -t NS www.google.com
+----------------------------------------------------------------
+PPP Point to Point Protocol Dialup Modem
+----------------------------------------------------------------
+
+
+----------------
+ethtool -- Display or change ethernet card settings
+----------------
+
+The currently used iptables(8), ip6tables(8), arptables(8), and ebtables(8) 
+                   (IPv4, IPv6, ARP, and Ethernet bridging) 
+are intended to be replaced with nft(8) as a single unified implementation, providing 
+firewall configuration on top of the in-kernel virtual machine.
+----------------------------------------------------------------
+Prefork
+Find the child processes listening on same socket 
+find the i-node of socket by netstat -lnpe|grep port
+Note the i-node example 23500
+cd /proc
+find . -name "fd" -type d|grep task|xargs ls -l |egrep '^\.|23500'|egrep -B 1 '^l'
+--------------------------------------
+increase socket buffer size
+man -s 7 socket
+
+Add this to /etc/sysctl.conf and reload with “sysctl -p”:
+
+increase TCP max buffer size setable using setsockopt()
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+#
+Check current values with “sysctl net.core.wmem_max”
+#
+
+buffer space sysctl -a | egrep net.core.[rw]mem 
+----------------------------------------------------------------
+timestamp localhost kernel: Neighbour table overflow.
+
+fix
+
+# Set ARP cache entry timeout
+sysctl -w net.ipv4.neigh.default.gc_stale_time=3600
+# Setup DNS threshold for arp
+sysctl -w net.ipv4.neigh.default.gc_thresh3=4096
+sysctl -w net.ipv4.neigh.default.gc_thresh2=2048
+sysctl -w net.ipv4.neigh.default.gc_thresh1=1024
+----------------------------------------------------------------
+Configuring Huge Pages in Red Hat Enterprise Linux 4 or 5
+
+
+----------------------------------------------------------------
+/etc/sudoers
+sbandi  ALL=(ALL)       NOPASSWD: ALL
+----------------------------------------------------------------
+#
+tcpdump
+
+tcpdump dst 172.20.150.182 and port 9132
+
+tcpdump -i any
+
+tcpdump -i any -nn
+
+#hex dump -x
+tcpdump -i any -nn -x
+
+# -c 10 10 packets and exit
+tcpdump -i any -nn -x -c 10
+
+/usr/sbin/tcpdump dst 172.17.145.10|grep ecnp
+/usr/sbin/tcpdump dst 172.17.145.130 udp
+
+/usr/sbin/tcpdump -i any dst 172.17.145.130
+/usr/sbin/tcpdump -i any host 172.17.145.130
+
+#monitor icmp traffic
+tcpdump -i eth0 icmp
+
+----------------------------------------------------------------
+Bash disables history in noninteractive shells by default, but you can turn it on.
+
+#!/bin/bash
+HISTFILE=~/.bash_history
+HISTSIZE=5000
+set -o history
+----------------------------------------------------------------
+
+sort uniq
+
+vim scp://root@$SNC2//var/log/      #ending must be / for directory
+vim scp://root@$SNC2/.personal_bashrc
+
+logger syslog
+
+------------------------------------------
+Programmable Completion
+    complete compgen compopt
+------------------------------------------
+print lines between two patterns
+
+#sed don't delete the lines between 1st pattern and 2nd pattern.
+#else delete
+pstree -ap|grep -v sed|sed '/ilrm/,/inuc/!d'
+
+#awk set p=1 when 1st pattern is matched. 
+# if (p) do default action ie., print $0
+# unset the p when 2nd pattern is match
+   pstree -ap|grep -v awk|awk '/ilrm/ {p=1}; p; /inuc/ {p=0}'
+------------------------------------------
+ps
+pid 1 init
+pid 2 kthreadd
+------------------------------------------
+
+threads of process
+ps -lfmLp pid
+
+#all process and threads
+ps -lfmLe
+
+-f              Full format
+-l              Long format
+
+-m              Show threads after processes
+-L              Show threads, possibly with LWP and NLWP columns
+-T              Show threads, possibly with SPID column
+
+PROCESS FLAGS
+The sum of these values is displayed in the "F" column, which is provided by the flags
+output specifier.
+    1    forked but didn’t exec
+    4    used super-user privileges
+------------------------------------------
+pkill [pgrep]        (1)  - look up or signal processes based on name and other attributes
+
+-----------------------------------------------
+Ctrl-C (in older Unixes, DEL) sends an INT signal ("interrupt", SIGINT); by default, this causes the process to terminate.
+Ctrl-Z sends a TSTP signal ("terminal stop", SIGTSTP); by default, this causes the process to suspend execution.
+Ctrl-\ sends a QUIT signal (SIGQUIT); by default, this causes the process to terminate and dump core.
+-----------------------------------------------
+lscpu
+lsblk
+    # all block devices
+    lsblk -a
+    lsblk -l
+    # file system details
+    lsblk -f
+## get io minimum read, get io optimum read size and get io block size
+blockdev --getiomin --getioopt --getbsz /dev/sda3
+blockdev --report /dev/sda
+        ## report columns
+        RO - ReadOnly?
+        RA - ReadAhead (in 512-byte sectors)
+        SSZ - Sector Size
+        BSZ - Block Size
+
+lsscsi
+ls -l /sys/block/*/device
+cat /proc/scsi/scsi
+## use stat to get Block size and io block size 
+df -m 
+stat -c "%b %B %o" Filesystem
+Example stat -c "%b %B %o"  /dev/sda3
+------------------------------------------
+df -hPT
+df -iPT
+------------------------------------------
+NTP query program
+
+#print a  list  of the peers known to the server in dotted-quad numeric format
+ntpq -pn
+------------------------------------------
+If you are very unlucky you have used about 100% of all inodes and can't create the scipt.
+You can check this with df -ih.
+Then this bash command may help you:
+
+find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -n
+
+------------------------------------------
+Deleted file recovery / restore
+nohup grep -a -B 1000 -A 1000 "void OnStatusUpdate(NECommBase::NECommStatus status)" /dev/sda3 > comm2 2> /dev/null &
+------------------------
+
+port scanning nmap
+
+os detection
+nmap -A -T4 -PN wiki.eng.idirect.net
+
+------------------------
+
+alternative for telnet nc (netcat)
+ncat is new modern alternative for nc (netcat)
+similar by gnu : netcat
+
+watch - periodic execution of a command
+
+------------------------------------------
+bash process substitution : input <() or output >()
+diff file1 file2
+diff <(sort file1) <(sort file2)
+diff <(cat < file1|sed 's/pattern/replacement/') <(cat < file2|sed 's/pattern/replacement/')
+diff <(cd /foo/bar/; ls) <(cd /foo/baz; ls)
+sort -m <(command1) <(command2) <(command3)
+
+#The following fails miserably. Bash is already using STDIN to read the script, so other input is impossible.
+curl -o - http://example.com/script.sh | bash 
+#But this way works perfectly.
+bash <(curl -o - http://example.com/script.sh)
+------------------------------------------
+brace initialization
+loop 100 times
+for i in {1..100}; do echo $i; done
+echo {1..100}
+for i in {250..1000..50}; do echo $i ; done
+echo {250..1000..50}
+------------------------------------------
+Odd numbers below 10: seq 1 2 10
+Even numbers below 10: seq 2 2 10
+Times table of 18: seq 18 18 180
+Times table of 19: seq 19 19 190
+------------------------------------------
+brace expansion
+
+Find the length of the string $VARNAME
+    ${#VARNAME}
+Extract a substring from a string ${VARNAME:m:n}
+    $VARNAME  - variable name substring from m of size n
+
+Replace "foo" with "bar" in a Variable ${VARNAME/foo/bar}
+
+upper (-u) or lower string (-l)
+declare -u var; var1=$var; echo $var1  ## echos lower case string 
+declare -l var; var2=$var; echo $var2  ## echos upper case string
+------------------------------------------
+
+# Check if a string matches a pattern
+if [[ $answer = [Yy]* ]]; then
+    # do something
+fi
+
+#Check if a string matches a regular expression
+if [[ $str =~ [0-9]+\.[0-9]+ ]]; then
+    # do something
+fi
+
+------------------------------------------
+
+rsync faster than scp
+
+------------------------------------------
+crash, dtrace/systemtap, strace/truss, and other debugging tools.
+------------------------------------------
+
+# add new user sbandi and change password
+useradd sbandi
+passwd sbandi
+------------------------------------------
+
+PGO Profile Guided Optimization
+g++ -O3 -march=native -pg -fprofile-generate ...
+//run my program's benchmark
+g++ -O3 -march=native -fprofile-use ...
+------------------------------------------
+g++ compiler options
+    -c          
+        Compile or assemble the source files, but do not link. output .o
+    -S          
+        Stop after the stage of compilation proper; do not assemble. output .s
+        The output is in the form of an assembler code file for each non-assembler input file specified.
+    -E          
+        Stop after the preprocessing stage; do not run the compiler proper. output onto stdout.
+    -o file     
+        Place output in file file.
+        If -o is not specified, the default is to put an executable file in a.out
+        the object file for source.o
+        its assembler file in source.s
+        a precompiled header file in source.suffix.gch
+        all preprocessed C source on standard output
+    -O<number>
+        Set optimization level to <number>
+    -Os
+        Optimize for space rather than speed
+    -Wall
+    -I
+    -L
+    -D -U define undefine macros
+
+------------------------------------------
+gcc g++ linking time map
+-Wl,-Map,output.map
+------------------------------------------
+openssl
+openssl --help
+openssl enc --help
+
+#Encrypt file using Cipher Type -des3
+openssl enc -e -des3 -pass pass:password < file > file_encrypted
+openssl enc -aes256 < input > input.enc
+#Decrypt file - supply same cipher type
+openssl enc -d -des3 -pass pass:password < file_encrypted
+
+sha512sum - compute and check SHA512 message digest
+or openssl sha512 -sha512 < filename
+
+------------------------------------
+#extract the public key from the certificate
+openssl x509 -pubkey -noout -in cert.pem > pubkey.pem
+
+#then use the key to verify the signature
+openssl dgst -verify pubkey.pem -signature sigfile datafile
+
+------------------------------------------
+test TLS Transport Layer Security connection
+
+openssl s_client -cert x509_cert.pem -key x509_key.pem -CAfile global_pki.pem -state -showcerts -quiet -connect 172.21.193.11:9132
+openssl s_client -cert x509_cert.pem -key x509_key.pem -CAfile global_pki.pem -state -showcerts -connect 172.21.193.11:9132
+openssl s_client -cert x509_cert.pem -key x509_key.pem -CAfile global_pki.pem -state -showcerts -connect 172.21.193.11:9132 -debug
+
+------------------------------------------
+#Command to generate the shared secret:
+openssl rand -hex 32
+
+#Command to sign the staging data file:
+openssl dgst -sha256 -sign SMprivate.pem -out XX.hash XX.dat
+
+#Command to generate a private key:
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 > /var/id-staging/SM/keys/SMprivate.pem
+
+#Command to generate a public key:
+openssl rsa -in /var/id-staging/SM/keys/SMprivate.pem -pubout -out /var/id-staging/SM/keys/SMpublic.pub   
+
+------------------------------------------
+valgrind --tool=massif --time-unit=B program
+ms_print
+valgrind --tool=exp-dhat
+------------------------------------------
+openSUSE System Analysis and Tuning Guide HELP\UNIX\Peformance\openSUSESystemAnalysisandTuningGuide.pdf
+------------------------------------------
+perf tools on linux
+
+#man
+man perf
+#help
+perf help stat
+perf help top ... list ... report
+# display quick usage jelp
+perf command -h
+
+#List of pre-defined events 
+perf list
+
+#To get the event L1-dcache-loads on process 16344
+perf stat  -e L1-dcache-loads -p 16344
+
+#perf-record - Run a command and record its profile into perf.data
+#perf-report - Read perf.data (created by perf record) and display the profile
+
+perf top -e cpu-clock -vp 1742
+# --call_graph
+perf top -e cpu-clock -vp 1586 --call_graph
+perf top -e cpu-clock, major-faults -vp 1586
+perf top -e cpu-clock major-faults -vp 1586
+perf top -e cpu-clock -e major-faults -vp 1586
+perf top -e cpu-clock -e major-faults -e cs -vp 1586
+perf top -e cpu-clock -e major-faults -e cs -vp 1742
+perf top -e cpu-clock -e page-faults -e context-switches -e task-clock -p 1742
+
+# -g for call graph -a all cpu
+# -A append to output -v verbose
+perf record -aAgv -e cpu-clock -o perf1.data -p pid &
+# -F 99 99 events per sec (99 HZ)
+perf record -aAgv -F 99 -e cpu-clock -o perf1.data -p pid &
+# record for 10 secs
+perf record -aAgv -F 99 -e cpu-clock -o perf1.data -p pid -- sleep 10
+perf record -aAgv -e cpu-clock -o perf1.data -p `ps -C umd -o pid=` &
+
+#script location
+/usr/libexec/perf-core/scripts/python
+#list of scripts
+perf script -l
+
+perf report -vg graph -i perf4.data
+perf timechart record -aAg -e cpu-clock -o perf8.data -vp 1546
+perf diff -M perf_data_file1 perf_data_file2
+
+#trace for 10 secs on pid 2963
+perf trace -p 2963 -- sleep 10
+
+#system wide collection mode of perf to count all L1 Cache cross-invalidations (along
+with the number of retired instructions for reference) for one minute
+perf stat -a -e instructions,r475 -- sleep 60
+
+if u expereince far more than one cache cross-invalidations per 1000 retired
+instructions, u may encounter measurable drawbacks in performance.
+
+#which events are captured at which frequency in the recorded data
+perf evlist -F -i perf_fbi_server_11701_19.data
+
+# verbose option displays the event names and PERF configuration information for each 
+# type of event including the sampling frequency
+perf evlist -v -i perf_fbi_server_11701_19.data
+
+------------------------------------------
+Listing probeable functions in userspace DSO (Dynamic Shared Object)
+   perf probe -F /lib64/libc-2.12.so
+   perf probe -F /lib64/libc-2.12.so|grep ^m|head -10
+
+Adding userspace probe
+    perf probe -x /lib64/libc-2.12.so malloc
+
+    #You can now use it in all perf tools, such as:
+    perf record -e probe_libc:malloc -aR sleep 1
+
+Collecting callchains with stack chunks
+    perf record -e probe_libc:* -g dwarf,1024 sleep 2
+
+------------------------------------------
+perf probe --list
+The life of a ping packet
+    perf probe -L icmp_rcv
+
+Inserting the probe
+    perf probe icmp_rcv:59
+
+    #You can now use it in all perf tools, such as:
+    perf record -e probe:icmp_rcv -aR sleep 1
+
+    #use the above probe (if no dwarf use fp)
+    perf record -e probe:icmp_rcv --call-graph dwarf ping -b 127.255.255.255
+
+    #Using scripts with probes
+    perf script -g python
+------------------------------------------
+perf flame graph
+    http://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html
+    git clone https://github.com/brendangregg/FlameGraph
+
+    recorded data file perf.data 
+    cd FlameGraph; cp perf_record_out_file ./perf.data
+    perf script | ./stackcollapse-perf.pl > out.perf-folded
+    ./flamegraph.pl out.perf-folded > perf-kernel.svg
+
+------------------------------------------
+kernel Documentation/trace
+------------------------------------------
+ftrace - function trace
+trace-cmd
+------------------------------------------
+grep PERF  /boot/config-`uname -r`
+
+grep CONFIG_UTRACE /boot/config-`uname -r`
+------------------------------------------
+ grep CONFIG_UPROBES /boot/config-`uname -r`
+  stap --dump-probe-types
+
+stap /usr/share/doc/doc/systemtap-client-2.7/examples/general/eventcount.stp 'kernel.trace("mm_page*")'
+
+stap  /var/lib/pgsql/sys_bak/usr_share_doc/doc/systemtap-client-2.7/examples/memory/mmanonpage.stp -x 15648
+
+tap ./profiling/pf4.stp -x 15648  -d /lib64/librt-2.12.so  -d /lib64/libc-2.12.so  -d /usr/bin/cfghandler -d /usr/lib64/libstdc++.so.6.0.13  -d /usr/pgsql-9.1/lib/libpq.so.5.4 -d /lib64/libpthread-2.12.so -d igb
+
+------------------------------------------
+modprobe intelligently adds or removes a module from the Linux kernel
+#list the kernel modules
+modprobe -l
+
+or
+
+#list the kernel modules came with kernel rpm
+rpm -q --filesbypkg kernel-$(uname -r)
+
+lsmod                (8)  - program to show the status of modules in the Linux Kernel
+insmod               (8)  - simple program to insert a module into the Linux Kernel
+rmmod                (8)  - simple program to remove a module from the Linux Kernel
+------------------------------------------
+bind -v
+bind "set completion-ignore-case on"
+------------------------------------------
+/etc/init.d/functions
+
+ulimit 
+# permanent change of ulimit
+/etc/security/limits.conf
+------------------------------------------
+#script that shows real usage of ram
+#subtracts shared space
+ps_mem.py   get from github 
+------------------------------------------
+top toprc
+sort O (order) and select
+1 - display all cpus
+z or b - all running process
+c - process cmd details
+spacebar - refresh screen
+A - multiple top panels and toggle them through a
+n - Decrease Number of Processes Displayed in Top Output – Press n
+
+Allocation of memory by new/malloc increases the Virtual memory (VIRT) and Data (DATA) sizes.
+Access of memory (read/write) will cause the RSS increase.
+Free/Delete will cause the decrease of VIRT and DATA and RSS.
+------------------------------------------
+iotop                (1)  - simple top-like I/O monitor
+powertop             (1)  - program to analyze power consumption on Intel-based laptops
+slabtop              (1)  - display kernel slab cache information in real time
+------------------------------------------
+https://stackoverflow.com/questions/34341898/match-all-occurrences-in-a-line-with-grep
+
+You need to do non-greedy match here, to stop at first occurrence.
+But since grep doesn't support non-greedy match by default, you can use negated character class:
+
+echo "word word" | grep -o 'w[^r]*rd'
+If you've GNU grep, then you can use -P option to enable Perl regex syntax. And then this would work:
+
+echo "word word" | grep -Po 'w.*?rd'
+
+#find number of commas in comma separated object id json list/array
+grep element_ids stats_terminal_state.opt| grep -Po ","|wc -l
+------------------------------------------
+
+dstat --disk --mem --net --io --swap --socket --tcp --top-bio --top-cpu --top-latency --top-mem 
+
+#save output into csv format
+dstat --disk --mem --net --io --swap --socket --tcp --output=./dstat.out
+------------------------------------------
+
+hard disk speed and paramteres
+hdparm
+
+hdparm -t /dev/sda
+
+------------------------------------------
+In Linux, partitions are represented by device files. These are phoney files located in /dev
+"character" devices     devices that do not use the buffer cache
+"block" devices, which go through the buffer cache
+IDE drives /dev/hda ...
+SCSI drives /dev/sda ...
+
+Once a drive has been partitioned, the partitions will represented as numbers on the end of the names
+------------------------------------------
+disk partition  
+
+fdisk                (8)  - Partition table manipulator for Linux
+cfdisk               (8)  - Curses based disk partition table manipulator for Linux
+sfdisk               (8)  - command line version of fdisk - Partition table manipulator for Linux
+
+fdisk is started by typing (as root) fdisk device at the command prompt. device might be something like /dev/hda or /dev/sda. 
+
+The basic fdisk commands :
+    p print the partition table
+    n create a new partition
+    d delete a partition
+    q quit without saving changes
+    w write the new partition table and exit
+
+list hard disks from root id  fdisk -l
+
+parted
+GNU Parted [parted]  (8)  - a partition manipulation program
+------------------------------------------
+make file system
+mkfs                 (8)  - build a Linux file system
+mkfs.ext2
+mkfs.ext3
+mk2fs
+e2label 
+devlabel is a script which creates symbolic links to devices
+dump2fs /dev/sda1
+------------------------------------------
+tune2fs - adjust tunable filesystem parameters on ext2/ext3/ext4 filesystems
+    tune2fs -c or -i to override
+------------------------------------------
+lvextend             (8)  - extend the size of a logical volume
+resize2fs            (8)  - ext2/ext3/ext4 file system resizer
+
+umount /geekpeek/
+lvextend /dev/VolGroup/lv_root -l 100%FREE
+resize2fs /
+mount /dev/sdb1 /geekpeek/
+resize2fs /dev/mapper/VolGroup-lv_root
+e2fsck -f /dev/sdb1
+------------------------------------------
+
+MBR Master Boot Record
+------------------------------------------
+
+/sbin/service <service_name> stop
+/sbin/service <service_name> start
+
+chkconfig            (8)  - updates and queries runlevel information for system services
+chkconfig --list
+/sbin/chkconfig <service_name> off
+/sbin/chkconfig <service_name> on
+
+------------------------------------------
+list of services:
+     ls /etc/rc.d/init.d/
+     ls /etc/init.d/
+
+/etc/rc.local   script that will be executed *after* all the other init scripts.
+                You can put your own initialization stuff in here if you don't
+                want to do the full Sys V style init stuff.
+------------------------------------------
+hard disk speed
+dd if=/tmp/packages/large3 of=/tmp/large3 bs=64k count=24000
+
+------------------------------------------
+cppcheck --enable=all --quiet . > cpp_errors 2>&1 &
+
+------------------------------------------
+
+addr2line -e exec_full_path address
+------------------------------------------
+readelf
+objdump
+nms
+------------------------------------------
+service abrt-ccpp stop
+------------------------------------------
+getrlimit
+ulimit
+prlimit (util-linux-2.21 recent versions of Linux (since 2.6.36))
+
+RLIMIT_CORE = 4 /usr/include/bits/resource.h
+
+cat /proc/pid/limits
+
+Enable the coredump for pid either through gdb or prlimit
+gdb -p pid
+
+# 4 is for RLIMIT_CORE. For other resource check /usr/include/bits/resource.h
+set $rlim = &{0ll, 0ll}
+print getrlimit(4, $rlim)
+print *$rlim
+set *$rlim[0] = -1
+print setrlimit(4, $rlim)
+quit
+
+verify again /proc/pid/limits
+------------------------------------------
+tee usage for stdout $ cmd1 | tee -a save_out_file
+tee usage for both stdout and stderr  $ cmd1 2&1 | tee -a save_out_file
+tee usage for both stdout and stderr since bashv4 $ cmd1 |& tee -a save_out_file
+------------------------------------------
+in script if we want to save log and also show on stdout
+exec &> >(tee -a ${TEST_LOG})
+------------------------------------------
+#pipe stderr and stdout
+command 2>&1 | grep 'something'
+#pipe stderr only
+command 2>&1 >/dev/null | grep 'something'
+------------------------------------------
+Check core pattern
+cat /proc/sys/kernel/core_pattern
+
+echo '/tmp/core_%e.%p' | sudo tee /proc/sys/kernel/core_pattern
+
+echo '/var/lib/pgsql/core_%e.%p' | sudo tee /proc/sys/kernel/core_pattern
+
+would cause all future core dumps to be generated in /tmp and be named core_[program].[pid]
+------------------------------------------
+Steps to enable core file creation. RedHat Linux default behavior is to prevent core files from being created.
+
+1) As root, run these commands to update the sysctl configuration:
+    sysctl -w fs.suid_dumpable=2
+    sysctl -w kernel.core_pattern="/tmp/core_%h_%e_%u_%g_%t_%p"
+
+2) Add following line to /etc/sysconfig/init:
+    DAEMON_COREFILE_LIMIT='unlimited'
+
+3) Create the file /etc/profile.d/idirect-enable-corefiles.sh, containing one line:
+    ulimit -c unlimited > /dev/null 2>&1
+
+4) Log out, then log back in
+------------------------------------------
+handle SIGPIPE nostop noprint pass 
+------------------------------------------
+
+#pexpect install
+cd /var/lib/pgsql
+wget http://pexpect.sourceforge.net/pexpect-2.3.tar.gz
+tar -xzf pexpect-2.3.tar.gz
+cd pexpect-2.3
+python ./setup.py install
+------------------------------------------
+html lynx
+elinks               (1)  - lynx-like alternative character mode WWW browser
+pinfo                (1)  - curses based lynx-style info browser
+------------------------------------------
+wget -nd -np -r --reject="index.html*",carton http://components.eng.idirect.net/Releases/X7/develop/latest/PKGS/
+
+wget -nd -np -r --accept="CX7xx_rootfs_ga_rmt_*.pkg" http://components.eng.idirect.net/Releases/X7/develop/latest/PKGS/
+
+    -nd, --no-directories     don't create directories.
+    -np, --no-parent          don't ascend to the parent directory.
+    -r,  --recursive          specify recursive download.
+    -A,  --accept=LIST               comma-separated list of accepted extensions.
+    -R,  --reject=LIST        comma-separated list of rejected extensions.
+------------------------------------------
+curl
+    -H  add an HTTP header to the request
+    -X  HTTP method Default GET. POST
+    –insecure   to ignore HTTPS certificate validation. 
+    -d  to pass data to the remote server.
+            We’ll specify a filename here, preceded by the @ symbol.
+    -c  stores data received by the server into a cookie file. 
+        We’ll then re-use this data in subsequent commands with the “-b” option.
+
+Pipe the output of curl API Call through python -m json.tool
+json_reformat or json_xs
+------------------------------------------
+directly execute script got using curl or wget
+# -s or --silent
+curl -s URL | bash -
+
+# -O output file to - stdout
+wget URL -O - | bash -
+------------------------------------------
+irqbalance           (1)  - distribute hardware interrupts across processors on a multiprocessor system
+taskset              (1)  - retrieve or set a process's CPU affinity
+chrt                 (1)  - manipulate real-time attributes of a process
+    Both policy (one of  SCHED_OTHER,  SCHED_FIFO, SCHED_RR, SCHED_BATCH, or SCHED_IDLE)
+    and priority can be set and retrieved.
+
+ionice               (1)  - get/set program io scheduling class and priority
+nice                 (1)  - run a program with modified scheduling priority
+nice                 (1p)  - invoke a utility with an altered nice value
+renice               (1)  - alter priority of running processes
+renice               (1p)  - set nice values of running processes
+snice [skill]        (1)  - send a signal or report process status
+------------------------------------------
+init                 (5)  - Upstart init daemon job configuration
+init                 (8)  - Upstart process management daemon
+initctl              (8)  - init daemon control tool
+inittab              (5)  - init daemon configuration
+
+service              (8)  - run a System V init script
+initctl              (8)  - init daemon control tool
+------------------------------------------
+
+runlevel             (7)  - event signalling change of system runlevel
+
+A  change  of  runlevel  is signalled by the runlevel(7) event, generated by either the
+telinit(8) or shutdown(8) tools.
+
+runlevel             (8)  - output previous and current runlevel
+telinit              (8)  - change system runlevel
+shutdown             (8)  - bring the system down
+halt [reboot]        (8)  - reboot or stop the system
+poweroff [reboot]    (8)  - reboot or stop the system
+reboot               (8)  - reboot or stop the system
+sm-notify            (8)  - send reboot notifications to NFS peers
+
+
+The RUNLEVEL argument should be one of the multi-user runlevels 2-5, 0 to halt the sys-
+tem, 6 to reboot the system or 1 to bring the system down into single-user mode.
+------------------------------------------
+#kernel params
+sysctl -a
+# kernel params POSIX standard
+getconf -a
+Example:   getconf -a|grep CACHE
+------------------------------------------
+
+getconf              (1p)  - get configuration values
+example: getconf PAGESIZE
+    Variable names from man sysconf
+
+sysconf              (3)  - Get configuration information at runtime
+sysconf              (3p)  - get configurable system variables
+
+
+------------------------------------------
+cpuspeed             (8)  - user-space cpu frequency scaling program, v1.5.1
+cpufreq-aperf        (1)  - Calculates the average frequency over a time period
+cpufreq-set          (1)  - A small tool which allows to modify cpufreq settings
+cpuid                (4)  - x86 CPUID access device
+cpuset               (7)  - confine processes to processor and memory node subsets
+cpuspeed             (8)  - user-space cpu frequency scaling program, v1.5.1
+------------------------------------------
+PuTTY
+    Private key file for authentication
+        Connection->SSH->Auth
+    Color copy Configuration->Window->Selection->Tick Paste to the clipboard in RTF (bottom)
+    Window->Color->Use system colors
+
+    Move Putty sessions to another computer
+    On source:
+    On cmd > regedit /e "C:\Users\sbandi\Documents\WindowsWorkSettings\PuTTYSessions\putty_sessions_2016_Nov.reg" HKEY_CURRENT_USER\Software\Simontatham
+
+    On Destination:
+        right mouse-click on the putty-registry.reg and click on ‘Merge’
+
+    Color Settings  - Solarized
+        https://github.com/altercation/solarized/tree/master/putty-colors-solarized
+
+------------------------------------------
+KiTTY
+scripts
+with telnet automation
+    \n: means send the characters 
+    \p: means wait for 1 second (you can add several \p if you need) 
+
+Some special characters have been created: 
+\p means wait for 1 second (you can add several \p if needed )
+\s05 for a 5 second pause (05 or another value )
+\ of course for sending a \
+
+------------------------------------------
+dmidecode - DMI (Desktop Management Interface) table decoder
+dmidecode is a tool for dumping a computer’s DMI (some say SMBIOS) table contents in a human-readableformat. This table contains a description of the system’s hardware components, as well as other  useful  pieces  of  information  such as serial numbers and BIOS revision.
+
+dmidecode -t type
+types are fields in the number range 0-41 (see man page) or symbolic names
+
+Keyword     Types
+------------------------------
+bios        0, 13
+system      1, 12, 15, 23, 32   #list cpu
+baseboard   2, 10, 41
+chassis     3
+processor   4
+memory      5, 6, 16, 17
+cache       7
+connector   8
+slot        9
+
+
+Example: dmidecode -t system
+        dmidecode -t processor
+        to get all valid keywords dmidecode -t 
+
+------------------------------------------
+The script extract-vmlinux found under scripts/ in the kernel sources decompresses a kernel image. 
+decompress vmlinuz 
+
+wget https://raw.githubusercontent.com/torvalds/linux/master/scripts/extract-vmlinux
+------------------------------------------
+GRUB, LILO and SYSLINUX are common bootloaders.
+GRUB    Grand Unified Bootloader
+LILO    Linux Loader
+------------------------------------------
+System.map file is a symbol table used by the kernel.
+/boot/System.map-$(uname -r)
+------------------------------------------
+The  program  helps  users  to print out their bootup messages
+dmesg   - boot debug messages
+------------------------------------------
+remove all except printables and newline
+cat inputfile | tr -c -d '[:print:],\n' > temp1
+
+------------------------------------------
+cat inputfile | tr -c -d '[:print:],\n' > temp1
+sed 's/<image omitted>/<image_omitted>/' temp1 > temp2
+mv temp2 ~/sw3rd/whatsapp-parser/app_text
+cd ~/sw3rd/whatsapp-parser/
+pyhton main.py app_text
+------------------------------------------
+stat  - file status
+atime might not be updated for every access.
+
+# to check file system relatime or noatime behaviour
+cat /proc/mounts
+
+#description of relatime and search for it
+man mount
+------------------------------------------
+cat -s #suppresses repeated empty output lines
+cat -ET # display EOL as $ and Tab as "^I"
+expand  #converts TAB characters to whitespaces
+unexpand #convert spaces to tabs
+------------------------------------------
+errno
+EPERM 1, ENOENT 2, ESRCh 3, EAGAIN 11, EACCES 13, EFAULT 14, EBUSY 16, EPIPE 32, ERANGE 34,
+RHEL    /usr/include/asm-generic/errno-base.h
+
+------------------------------------------
+correct /etc/fstab before boot
+ - at the grub prompt, hit a to append options
+ - add init=/bin/bash to the end of the kernel command line and press enter
+ The system will boot to a prompt like 'bash-3.2#' enter the following commands at the prompt
+ - mount -o remount,rw / 
+ - vi /etc/fstab
+ edit the fstab file commenting the errors by adding a # at the begining of each problematic line, save the file
+ - reboot by pressing CTRL+ALT+DEL 
+------------------------------------------
+RHEL 6.2/6.8 bare metal grub location
+    EFI     /boot/efi/EFI/redhat/grub.conf
+    BIOS    /boot/grub/grub.conf
+    find /boot -name "grub.conf*" -exec ls -l {} \;
+------------------------------------------
+free
+   cat /proc/meminfo
+    This  file  reports  statistics  about  memory usage on the system.  It is used by free(1) to report the amount of free and used memory (both physical and swap) on the system as well as the shared memory and buffers used by the kernel.
+
+------------------------------------------
+proc file system
+man -s5 proc
+------------------------------------------
+debuginfo-install   
+------------------------------------------
+kernel config
+grep CONFIG_UTRACE /boot/config-`uname -r`
+
+------------------------------------------
+shellinaboxd -s /:idirect:idirect:/home/idirect/:umd_diagnostic_tool.py
+    http://10.1.242.182:4200/
+OR
+shellinaboxd -s /umd_tool:idirect:idirect:/home/idirect/:umd_diagnostic_tool.py
+    http://10.1.242.182:4200/umd_tool
+------------------------------------------
+readline vi mode
+    The Readline default is emacs mode.
+    Readline Init File  /etc/inputrc ~/.inputrc 
+        set editing-mode vi
+
+    When you enter a line in vi mode, you are already placed in `insertion' mode, as if you had typed an `i'.
+    Pressing ESC switches you into `command' mode, where you can edit the text of the line with the standard 
+    vi movement keys, move to previous history lines with `k' and subsequent lines with `j', and so forth.
+
+    M key is Meta key (or Alt)
+    If you do not have a Meta or ALT key, or another key working as a Meta key, 
+    the identical keystroke can be generated by typing ESC first, and then typing k.
+    Either process is known as metafying the k key.
+
+    C-M-j or M-C-j : (Ctrl+Alt+j)
+       In order to switch interactively between emacs and vi editing modes, use the command M-C-j
+       (bound to emacs-editing-mode when in vi mode and to vi-editing-mode in emacs mode).
+       The Readline default is emacs mode.
+------------------------------------------
+commands for manipulating commandline history 
+    reverse-search-history (C-r)
+    forward-search-history (C-s)
+    previous-history (C-p)
+    next-history (C-n)
+    beginning-of-history (M-<)
+
+C-L (Ctrl+L) Clear Screen
+C-k (Ctrl+K) Kill the text from the current cursor position to the end of the line.
+C-y (CTRL+Y) Yank the most recently killed text back into the buffer at the cursor.
+------------------------------------------
+key sequences
+
+The best way to find out what a key or key combination sends for your terminal
+run sed -n l and to type it followed by Enter on the keyboard.
+
+$ sed -n l
+
+ESC         ^[      GNU readline expects \e for ESC
+Shift-Tab   \e[Z
+up arrow    \e[A
+down arrow  \e[B
+left arrow  \e[C
+right arrow \e[D
+HOME        \e[1~
+F1          \e[11~
+
+see terminfo infocmp
+
+------------------------------------------
+Redhat Multilevel Security (MLS) Bell-LaPadula - Security levels
+
+    Top Secret      Write (up) Read (down)
+    Secret
+    Confidential
+    Restricted
+    Unclassified
+
+MCS Multi Category Security
+------------------------------------------
+.sig file is a signature file
+
+gpg --verify file.tar.gz.sig file.tar.gz
+------------------------------------------
+The dash on its own is a simple command argument. Its meaning is command dependent. Its two most usual meanings are 'standard input' or (less often) 'standard output'. The meaning of 'previous directory' is unique to the cd shell built-in (and it only means that in some shells, not all shells).
+
+cat file1 - file2 | troff ...
+This means read file1, standard input, and file2 in that sequence and send the output to troff.
+
+An extreme case of using - to mean 'standard input' or 'standard output' comes from (GNU) tar:
+
+generate_file_list ... |
+tar -cf - -T - |
+( cd /some/where/else; tar -xf - )
+The -cf - options in the first tar mean 'create an archive' and 'the output file is standard output';
+The -T - option means 'read the list of files and/or directories from standard input'.
+
+The -xf - options in the second tar mean 'extract an archive' and 'the input file is standard input'.
+In fact, GNU tar has an option -C /some/where/else which means it does the cd itself, so the whole command could be:
+
+generate_file_list ... |
+tar -cf - -T - |
+tar -xf - -C /some/where/else
+The net effect of this is to copy the files named by the generate_file_list command from under the 'current directory' to /some/where/else, preserving the directory structure. (The 'current directory' has to be taken with a small pinch of salt; any absolute file names are given special treatment by GNU  tar — it removes the leading slash — and relative names are taken as relative to the current directory.)
+------------------------------------------
+tar --transform use sed replace EXPRESSION to transform file names
+
+tar --transform='flags=r;s|bar|foo|' -cf file.tar file1 file2 bar fubar /dir/*
+
+Results of the above is that bar is added to file.tar as foo.
+The r flag means transformations are applied to regular files only. 
+
+transformation scope flags
+--------------------------
+r Apply transformation to regular archive members.
+R Do not apply transformation to regular archive members.
+s Apply transformation to symbolic link targets.
+S Do not apply transformation to symbolic link targets.
+h Apply transformation to hard link targets.
+H Do not apply transformation to hard link targets.
+
+Default is `rsh', which means to apply transformations to both archive members and targets of symbolic and hard links.
+
+http://www.gnu.org/software/tar/manual/html_section/tar_52.html#transform
+
+You can use --transform multiple times.
+
+Here are several examples of `--transform' usage:
+
+#Extract `usr/' hierarchy into `usr/local/':
+tar --transform='s,usr/,usr/local/,' -x -f arch.tar
+
+#Strip two leading directory components (equivalent to `--strip-components=2'):
+tar --transform='s,/*[^/]*/[^/]*/,,' -x -f arch.tar
+
+#Convert each file name to lower case:
+tar --transform 's/.*/\L&/' -x -f arch.tar
+
+#Prepend `/prefix/' to each file name:
+tar --transform 's,^,/prefix/,' -x -f arch.tar
+
+#Archive the `/lib' directory, prepending `/usr/local' to each archive member:
+tar --transform 's,^,/usr/local/,S' -c -f arch.tar /lib
+------------------------------------------
+cpan
+#avoid interactive prompt when installing dependency
+o conf prerequisites_policy follow
+o conf commit
+------------------------------------------
+printf '%-50s' "left-justified-test50width"
+printf '%50s' "right-justified-test50width"
+
+#repeat a character n times
+printf '=%.0s' {1..100}; echo
+------------------------------------------
+------------------------------------------
+------------------------------------------
+------------------------------------------
+END_UNIX_CMD_HELP_FILE
+------------------------------------------
