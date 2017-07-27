@@ -1,0 +1,8 @@
+select 	USERNAME,
+	CREATED,
+	PROFILE,
+	DEFAULT_TABLESPACE,
+	TEMPORARY_TABLESPACE
+from 	dba_users
+order 	by USERNAME
+/

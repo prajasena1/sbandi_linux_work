@@ -1,0 +1,27 @@
+Build of GCC - instructions
+http://www.linuxfromscratch.org/blfs/view/cvs/general/gcc.html
+
+Infrastructure libraries
+---------------------------------------
+GBP - GNU Multiple Precision Arithmetic Library
+MPFR - GNU Multiple-precision floating-point rounding  library
+MPC - multiple-precision complex arithmetic 
+ISL - Integer Set Library
+
+wget http://ftp.gnu.org/gnu/mpc/mpc-1.0.1.tar.gz
+wget http://ftp.gnu.org/gnu/gmp/gmp-4.3.2.tar.gz
+wget http://ftp.gnu.org/gnu/mpfr/mpfr-2.4.2.tar.gz
+wget http://isl.gforge.inria.fr/isl-0.12.tar.gz
+wget http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.1.tar.gz
+
+------------------------------------------------
+cd gcc-4.8.2; mkdir ../objdir; cd ../objdir
+../gcc-4.8.2/configure --with-gmp=/usr/local --with-mpfr=/usr/local --with-mpc=/usr/local --enable-shared --enable-threads=posix --enable-__cxa_atexit --enable-clocale=gnu --disable-multilib --enable-lto -enable-languages=c,c++
+make
+-------------------------------------------------
+/usr/local/bin/g++ -std=c++11 -Wl,--no-as-needed -pthread test2.cpp
+
+4.9.1
+----------------------------------
+wget ftp://www.mirrorservice.org/sites/ftp.gnu.org/gnu/gcc/gcc-4.9.1/gcc-4.9.1.tar.gz
+

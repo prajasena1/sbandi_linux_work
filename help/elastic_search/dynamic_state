@@ -1,0 +1,118 @@
+#get all Mappings for all indexes
+curl -XGET 'localhost:9200/_all/_mapping?pretty'
+curl -XGET 'localhost:9200/_mapping?pretty'
+
+#get mapping for index dynamic_state
+curl -XGET 'localhost:9200/dynamic_state/_mapping?pretty'
+
+#search records specific to obj_typeid = 324 (NMS Server)
+curl -XGET 'localhost:9200/dynamic_state/_search?q=obj_typeid:324&pretty'
+    OR
+curl -XGET 'localhost:9200/dynamic_state/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+    "query" : {
+        "term" : { "obj_typeid" : "324" }
+    }
+}
+'
+
+#count records with config_status = 0
+curl -XGET 'localhost:9200/dynamic_state/_count?q=config_status:0&pretty'
+    OR
+curl -XGET 'localhost:9200/dynamic_state/_count?pretty' -H 'Content-Type: application/json' -d'
+{
+    "query" : {
+        "term" : { "obj_typeid" : "324" }
+    }
+}
+'
+
+#Aggregations
+#summary of element's update_state
+curl -XGET 'localhost:9200/dynamic_state/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+    "size" : 0,
+    "aggs" : {
+        "popular_update_state" : {
+            "terms" : {
+              "field" : "update_state"
+            }
+        }
+    }
+}
+'
+
+#summary of element's update_state_detail
+curl -XGET 'localhost:9200/dynamic_state/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+    "size" : 0,
+    "aggs" : {
+        "popular_update_state" : {
+            "terms" : {
+              "field" : "update_state_detail"
+            }
+        }
+    }
+}
+'
+
+#summary of different object types
+curl -XGET 'localhost:9200/dynamic_state/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+    "size" : 0,
+    "aggs" : {
+        "popular_object_types" : {
+            "terms" : {
+              "field" : "obj_typeid"
+            }
+        }
+    }
+}
+'
+
+#summary of update_state_detail grouped by object type
+curl -XGET 'localhost:9200/dynamic_state/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+   "size" : 0,
+   "aggs": {
+      "popular_update_state": {
+         "terms": {
+            "field": "update_state_detail"
+         },
+         "aggs": {
+            "type": {
+                "terms": {
+                    "field": "obj_typeid"
+                }
+            }
+         }
+      }
+   }
+}
+'
+
+######################################################################################
+#From: Wan, Chen 
+#Subject: RE: elastic search URL and query
+On MNC, Elasticsearch is secured behind a tunnel.
+
+One end of the tunnel co-locates with the NodeJS and Hypnotoad processes.
+This end listens on the usual Elasticsearch port 9200.
+
+The other end of the tunnel co-locates with Elasticsearch.
+It forwards traffic to port 9205 which Elaticsearch listens.
+
+Machine 10.110.6.xx                                      Machine 10.110.6.79
+NodeJS/Hypnotoad    9200:tunnel:   ------>    15829:tunnel:9205 Elasticsearch
+
+
+Why is Elasticsearch listening on port 9205?
+It's a precautionary measure to avoid port collision in case NodeJS/Hypnotoad and Elasticsearch all co-locate on the same machine.
+This could happen if there is enough nodes failed or shut down.
+
+######################################################################################
+
+######################################################################################
+
+######################################################################################
+

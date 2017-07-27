@@ -1,0 +1,40 @@
+------------------------------------------------------------------------------
+FE
+    Each front end uses a parser to produce the abstract syntax tree of a given source file.
+ME
+    IR 
+    Optimization
+        Some of these optimizations performed at this level include 
+        dead code elimination, 
+        partial redundancy elimination, 
+        global value numbering, 
+        sparse conditional constant propagation, and 
+        scalar replacement of aggregates. 
+        Array dependence based optimizations such as automatic vectorization and automatic parallelization are also performed.
+        Profile-guided optimization is also possible
+BE
+------------------------------------------------------------------------------
+
+IR  Intermediate representation
+
+SSA static single assignment form
+CPS Continuation-passing style
+
+Functional and logic compilers often use CPS as an intermediate representation where 
+a compiler for an imperative or procedural programming language would use SSA.
+
+TAC or 3AC  Three Address Code
+        Each TAC instruction has at most three operands and is typically a combination of assignment and a binary operator.
+
+Calling convention is an implementation-level (low-level) scheme for how subroutines receive parameters from their caller and how they return a result. 
+
+Recursive descent parser
+Recursive Descent Predictive Parsing
+
+
+RTL Register Transfer Language (RTL) is a kind of intermediate representation (IR) that is very close to assembly language, such as that which is used in a compiler. 
+    It is used to describe data flow at the register-transfer level of an architecture. 
+    Academic papers and textbooks often use a form of RTL as an architecture-neutral assembly language. 
+
+
+------------------------------------------------------------------------------

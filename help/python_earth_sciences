@@ -1,0 +1,64 @@
+-------------------------------------------------------------------------------------------------------------
+wget https://repo.continuum.io/archive/Anaconda2-4.3.1-Linux-x86_64.sh
+-------------------------------------------------------------------------------------------------------------
+US Integrated Ocean Observing System (IOOS)
+
+https://anaconda.org/ioos/repo?type=conda&label=main
+
+conda install -c ioos python-ecmwf_grib=1.15.0
+-------------------------------------------------------------------------------------------------------------
+conda update conda
+conda update anaconda
+#conda install netcdf
+conda install netcdf4
+conda install libnetcdf
+conda install basemap
+
+-------------------------------------------------------------------------------------------------------------
+https://github.com/Anaconda-Platform/anaconda-client
+conda install anaconda-client
+
+
+#Upload your notebooks to anaconda.org
+anaconda notebook upload my-notebook.ipynb 
+
+#Download your notebook from anaconda.org
+anaconda notebook download my-notebook-ipynb 
+
+#Download any user's public notebook from anaconda.org
+anaconda notebook download user/notebook-ipynb
+-------------------------------------------------------------------------------------------------------------
+https://anaconda.org/bfiedler/notebooks
+-------------------------------------------------------------------------------------------------------------
+wget https://sourceforge.net/projects/matplotlib/files/matplotlib-toolkits/basemap-1.0.7/basemap-1.0.7.tar.gz/download
+
+Untar the basemap version X.Y.Z source tar.gz file, and and cd to the basemap-X.Y.Z directory.
+
+Install the GEOS library.
+    cd geos-3.3.3
+    export GEOS_DIR=<where you want the libs and headers to go>
+    # A reasonable choice on a Unix-like system is /usr/local, or
+    # if you don't have permission to write there, your home directory.
+    ./configure --prefix=$GEOS_DIR
+    make; make install
+
+cd back to the top level basemap directory (basemap-X.Y.Z) and run the usual python setup.py install. Check your installation by running from mpl_toolkits.basemap import Basemap at the python prompt.
+
+To test, cd to the examples directory and run python simpletest.py. To run all the examples (except those that have extra dependencies or require an internet connection), execute python run_all.py.
+
+-------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------

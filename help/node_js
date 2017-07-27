@@ -1,0 +1,121 @@
+node
+---------------------
+ctrl + c - terminate the current command.
+ctrl + c twice - terminate the Node REPL.
+ctrl + d - terminate the Node REPL.
+Ctrl + L Clear screen   or process.stdout.write('\033c');
+
+
+Up/Down Keys - see command history and modify previous commands.
+tab - list of current commands.
+
+.help - list of all commands.
+.break - exit from multiline expression.
+.clear - exit from multiline expression
+.save filename - save current Node REPL session to a file.
+.load filename - load file content in current Node REPL session.
+
+
+npm --version
+#local install
+npm install <ModuleName>
+
+#global install
+npm install <ModuleName> -g
+
+npm uninstall <ModuleName>
+npm update <ModuleName>
+npm search <ModuleName>
+
+/usr/lib/node_modules/npm/
+
+#list down all the locally installed modules
+npm ls
+
+#command to check all the modules installed globally
+npm ls -g
+
+--------------------------------------------------------------------
+// Import events module
+var events = require('events');
+
+// Create an eventEmitter object
+var eventEmitter = new events.EventEmitter();
+
+// Bind event and even handler as follows
+eventEmitter.on('eventName', eventHandler);
+
+// Fire an event 
+eventEmitter.emit('eventName');
+--------------------------------------------------------------------
+By convention, a callback is always the last argument
+Callbacks should always have a potential Error object as the 1st arg
+
+The GLOBAL CONTEXT
+    In the browser, this is window
+    In the Node, this is global
+
+Hint:
+    on node cli (tab completion)
+        > global.
+    On google chrome console (intellisense)
+        > window.
+
+node process is an EventEmitter
+> events
+
+--------------------------------------------------------------------
+
+Environment Variables
+    process.env
+Command line Args
+    process.argv
+    1st two elements of argv are 'node' and script filename!
+
+To exit the node process (or Ctrl+C twice)
+    process.exit(0);
+
+--------------------------------------------------------------------
+Math.random()
+--------------------------------------------------------------------
+Array                 Boolean               Date                  Error                 EvalError             Function
+Infinity              JSON                  Math                  NaN                   Number                Object
+RangeError            ReferenceError        RegExp                String                SyntaxError           TypeError
+URIError              decodeURI             decodeURIComponent    encodeURI             encodeURIComponent    eval
+isFinite              isNaN                 parseFloat            parseInt              undefined
+
+ArrayBuffer           Buffer                DataView              Float32Array          Float64Array          GLOBAL
+Int16Array            Int32Array            Int8Array             Intl                  Map                   Promise
+Set                   Symbol                Uint16Array           Uint32Array           Uint8Array            Uint8ClampedArray
+WeakMap               WeakSet               _                     assert                buffer                child_process
+clearImmediate        clearInterval         clearTimeout          cluster               console               crypto
+dgram                 dns                   domain                escape                events                fs
+g                     gen                   global                http                  https                 i
+idMaker               module                net                   os                    path                  process
+punycode              querystring           readline              require               root                  setImmediate
+setInterval           setTimeout            stream                string_decoder        tls                   tty
+unescape              url                   util                  v8                    vm                    zlib
+
+__defineGetter__      __defineSetter__      __lookupGetter__      __lookupSetter__      __proto__             constructor
+hasOwnProperty        isPrototypeOf         propertyIsEnumerable  toLocaleString        toString              valueOf
+
+--------------------------------------------------------------------
+Simple http file server
+npm install http-server -g
+To use it:
+
+cd D:\Folder
+http-server
+Or, like this:
+
+http-server D:\Folder
+http-server -a localhost -p 80 
+
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+--------------------------------------------------------------------

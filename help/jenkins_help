@@ -1,0 +1,39 @@
+----------------------------------------------------------------------------
+service jenkins start 
+    fails
+    Caused by: java.lang.UnsatisfiedLinkError: /tmp/jna--1712433994/jna3596567039993653260.tmp: /tmp/jna--1712433994/jna3596567039993653260.tmp: failed to map segment from shared object: Operation not permitted
+
+Resolution
+The issue is being caused by the noexec settings for the /tmp directory. These settings are preventing the Jenkins process to launch the JNA library from the /tmp directory.
+
+To resolve the issue, please do either of the following.
+
+Option 1: Change the temporary directory of Jenkins
+To change the temporary directory that Jenkins uses, you need to:
+
+append -Djava.io.tmpdir=$JENKINS_HOME/tmp into JENKINS_JAVA_OPTIONS variable in either /etc/sysconfig/jenkins or /etc/default/jenkins file depending on your OS
+create /var/lib/jenkins/tmp using the Unix user that runs the Jenkins process
+
+Option 2: Fix the mount option of /tmp
+As root, edit /etc/fstab configuration file and remove noexec from the mount option of /tmp directory. Then run:
+
+mount -o remount /tmp
+to apply the modification.
+----------------------------------------------------------------------------
+After jenkins setup 
+/var/log/jenkins/jenkins.log
+
+Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+6884f8a555044e548291928ab6443fa5
+
+This may also be found at: /var/lib/jenkins/secrets/initialAdminPassword
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------

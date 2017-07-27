@@ -1,0 +1,21 @@
+-----------------------------------------------------------------------------------
+& is a bitwise AND operator. 
+Doing (num & 1) checks if the last bit (least significant bit) of the number is set.
+If it is set, the number is odd, and if it is not set, it is even.
+It is just a fast way to check if a number is even or odd.
+-----------------------------------------------------------------------------------
+testcode/byte_order.cpp
+
+bits xor-ed with themselves are always zero
+
+XORing the same value twice restores the original
+
+The Bitwise XOR (exclusive or) performs a logical XOR function, which is equivalent 
+to adding two bits and discarding the carry.
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+

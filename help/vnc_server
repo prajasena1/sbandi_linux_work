@@ -1,0 +1,85 @@
+-------------------------------------------------------------------------------------------------------------
+yum install -y tigervnc-server.x86_64
+cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
+vi /etc/systemd/system/vncserver@.service
+systemctl daemon-reload
+systemctl start vncserver@:1.service
+journalctl -xe
+systemctl status vncserver@:1.service
+systemctl stop vncserver@:1.service
+
+firewall-cmd --zone=public --add-port=5901/tcp
+firewall-cmd --list-all
+
+-------------------------------------------------------------------------------------------------------------
+firewall-cmd --permanent --zone=public --add-port=5950/tcp
+firewall-cmd --reload
+
+VNC setup based on xinetd with XDMCP for GDM
+
+yum install gdm tigervnc tigervnc-server xinet
+# systemctl enable xinetd.service
+# systemctl get-default
+
+Set up GDM to enable XDMCP by editing the /etc/gdm/custom.conf configuration file:
+[xdmcp]
+Enable=true
+
+Create a file called /etc/xinetd.d/xvncserver with the following content:
+service xvncserver
+{
+disable = no
+protocol = tcp
+socket_type = stream
+wait = no
+user = nobody
+server = /usr/bin/Xvnc
+server_args = -inetd -query localhost -once -geometry selected_geometry -depth selected_depth securitytypes=none
+}
+
+In the server_args section, the -query localhost option will make each Xvnc instance query localhost for an xdmcp session. The -depth option specifies the pixel depth (in bits) of the VNC desktop to be created. Acceptable values are 8, 15, 16 and 24 - any other values are likely to cause unpredictable behavior of applications.
+
+Edit file /etc/services to have the service defined. To do this, append the following snippet to the /etc/services file:
+
+# VNC xinetd GDM base
+xvncserver 5950/tcp
+
+-------------------------------------------------------------------------------------------------------------
+
+"Authentication is required to set the network proxy used for downloading packages..." popup message at login
+
+Resolution
+
+To Disable the message in Red Hat Enterprise Linux 6
+Disable auto start of gpk-update by adding to bottom of the file /etc/xdg/autostart/gpk-update-icon.desktop
+X-GNOME-Autostart-enabled=false 
+
+To Disable the message in Red Hat Enterprise Linux 7
+
+# yum install gnome-software
+# sed -e '$aX-GNOME-Autostart-enabled=false' -e '/X-GNOME-Autostart-enabled/d' -i.bak /etc/xdg/autostart/gnome-software-service.desktop
+
+
+-------------------------------------------------------------------------------------------------------------
+#for clipboard
+vncconfig &
+
+I created a file vncconfig.desktop in the /etc/xdg/autostart directory which enabled cut and paste during the session after login.
+The vncconfig process is run as the logged in user.
+[Desktop Entry]
+Name=No name
+Encoding=UTF-8
+Version=1.0
+Exec=vncconfig -nowin
+X-GNOME-Autostart-enabled=true
+
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------

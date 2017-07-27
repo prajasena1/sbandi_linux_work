@@ -1,0 +1,41 @@
+--------------------------------------------------------------
+
+Option -C  to demangle C++ sym makes objdump slow
+objdump -DgCls
+
+so better make below and then use c++filt to demangle the symbol u are interested
+
+objdump  -dglws
+
+--------------------------------------------------------------
+For staticaly linked binaries, use the ip:<ip_address> as offset
+--------------------------------------------------------------
+For Dynamicaly linked libaries, below method
+
+ the offset = ip (instruct ptr) adress - lib_base_address
+ For below example: offset = 00007eff4e953c90-7eff4e7e6000
+
+Oct 17 03:35:08 nocIDCOMP16 kernel: umd[2850]: segfault at e8 ip 00007eff4e953c90 sp 00007fff0837fe40 error 6 in libnms.so[7eff4e7e6000+302000]
+
+awk that can does for all such above segfaults from /var/log/messages
+
+extract them into temp file and run below awk
+
+egrep libnms.so temp1 | awk '{print $11 " " $17}'|sed 's/^/0x/; s/lib.*.so\[/0x/; s/\+.*$//'|awk --non-decimal-data '{printf("%x\n", $1-$2)}' | sort | uniq -c
+
+--------------------------------------------------------------
+
+export GREP_OPTIONS=' --color=auto '
+export GREP_COLORS="fn=32:ln=33"
+
+egrep "offset:" objdump
+egrep -B 100 -A 50 "offset:" objdump
+
+--------------------------------------------------------------
+addr2line - convert addresses into file names and line numbers
+--------------------------------------------------------------
+gdb backtrace
+        lengthy call stack with no proper function names may indicate program crashed due to exceeding stack limits.
+        Program might be failing due to infinite recursion.
+
+--------------------------------------------------------------

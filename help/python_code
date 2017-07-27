@@ -1,0 +1,247 @@
+NMS_ICD_API/cluster/scripts
+
+print '\n'.join(sys.modules.keys())
+
+for module in sys.modules:
+    print module, " ", sys.modules[module]
+
+for modx in sys.modules.items():
+    print modx
+
+for modx in sys.modules.itervalues():
+    print modx
+
+
+pstack_sub_p = subprocess.Popen('/usr/bin/pstack ' + m.group(1) + ' &> /var/lib/pgsql/strace_out/pstack_' +  nms_pid + '_' + st, shell=True);
+pstack_sub_p = subprocess.Popen('/usr/bin/capture_callstack.sh ' + m.group(1) + ' &> /var/lib/pgsql/strace_out/pstack_' +  nms_pid + '_' + st, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+pstack_sub_p = subprocess.Popen('/usr/bin/capture_callstack.sh ' + m.group(1), stdout=out_file, stderr=out_file, shell=True)
+strace_sub_p = subprocess.Popen('/usr/bin/strace -tt -T -p ' + m.group(1) + ' -o /var/lib/pgsql/strace_out/strace_' +  nms_pid + '_' + st, shell=True)
+strace_pid = psutil.Process(subp.pid)
+strace_sub_p.terminate()
+
+
+##########################
+#substring is through slicing
+name='nms_jsoncpp-0.5.0-1.x86_64.pkg'
+name.find('-')
+name[:name.find('-')] #print from start to hyphen
+name[:-2] # from begin to end-2
+name[3:-2] # from 3rd  to end-2
+
+##########################
+# Remove some elements from list
+def determine(val):
+	if val%2 == 0:
+		return True
+	else:
+		return False
+
+somelist = list()
+for i in range(10):
+	somelist.append(i)
+
+print somelist
+somelist[:] = [x for x in somelist if not determine(x)]
+print somelist
+##########################
+
+def dict_raise_on_duplicates(ordered_pairs):
+    """reject duplicate keys"""
+    my_dict = dict()
+    for key, values in ordered_pairs:
+        if key in my_dict:
+            raise ValueError("Duplicate key: {}".format(key,))
+        else:
+            my_dict[key] = values
+    return my_dict
+##########################
+Dynamically build a JSON object with Python?
+JSON is a serialization format, textual data representing a structure. It is not, itself, that structure.
+
+data = {}
+data['key'] = 'value'
+json_data = json.dumps(data)
+
+Example:
+  "tests":
+    [
+        {
+            "type": "events",
+                "path": "test_event_1.opt"
+        }
+    ]
+
+    # to prepare above json struct
+    data = {}
+    test_opts =  list()
+
+    test_opt = {}
+    test_opt["type"] = "events"
+    test_opt["path"] = "test_event_1.opt"
+    test_opts.append(test_opt)
+
+    test_opt = {}
+    test_opt["type"] = "events"
+    test_opt["path"] = "test_event_2.opt"
+    test_opts.append(test_opt)
+    data["tests"] = test_opts
+    json.dumps(data)
+
+
+params = dict(
+    size = 0,
+    aggs = dict(
+        popular_object_types = dict(
+        terms = dict(
+            field = 'obj_typeid',
+            size = 100
+            )
+        )
+    )
+)
+
+##########################
+data = {'sender': 'Alice', 'receiver': 'Bob', 'message': 'We did it!'}
+data=json.dumps(data)
+
+out_eap = json.loads(r'{"errors":[],"data":[],"meta":{"count":0}}')
+##########################
+
+Check if key exists and iterate the JSON array using Python
+
+import json
+
+jsonData = """{"from": {"id": "8", "name": "Mary Pinter"}, "message": "How ARE you?", "comments": {"count": 0}, "updated_time": "2012-05-01", "created_time": "2012-05-01", "to": {"data": [{"id": "1543", "name": "Honey Pinter"}]}, "type": "status", "id": "id_7"}"""
+
+def getTargetIds(jsonData):
+    data = json.loads(jsonData)
+    if 'to' not in data:
+        raise ValueError("No target in given data")
+    if 'data' not in data['to']:
+        raise ValueError("No data for target")
+
+    for dest in data['to']['data']:
+        if 'id' not in dest:
+            continue
+        targetId = dest['id']
+        print("to_id:", targetId)
+##########################
+from multiprocessing import Pool
+from multiprocessing.dummy import Pool as ThreadPool
+##########################
+
+import urllib2 
+from multiprocessing.dummy import Pool as ThreadPool 
+
+urls = [
+  'http://www.python.org', 
+  'http://www.python.org/about/',
+  'http://www.onlamp.com/pub/a/python/2003/04/17/metaclasses.html',
+  'http://www.python.org/doc/',
+  'http://www.python.org/download/',
+  'http://www.python.org/getit/',
+  'http://www.python.org/community/',
+  'https://wiki.python.org/moin/',
+  'http://planet.python.org/',
+  'https://wiki.python.org/moin/LocalUserGroups',
+  'http://www.python.org/psf/',
+  'http://docs.python.org/devguide/',
+  'http://www.python.org/community/awards/'
+  # etc.. 
+  ]
+
+# Make the Pool of workers
+pool = ThreadPool(4) 
+# Open the urls in their own threads
+# and return the results
+results = pool.map(urllib2.urlopen, urls)
+#close the pool and wait for the work to finish 
+pool.close() 
+pool.join()
+##########################
+
+concatenate lists
+[ result.extend(el) for el in x] 
+
+for el in tba_cm_obj_ids:
+    if el:
+        g_tba_cm_obj_ids.extend(el)
+##########################
+mycode = "KotiPanduABCABCABCNayak"
+secret = base64.b64encode(mycode)
+
+
+mycode = """secret='S290aVBhbmR1UmFrdGE5cGF0TmF5YWs='
+print "%s" % (base64.b64decode(secret)[9:18])"""
+
+secretcode=base64.b64encode(mycode)
+eval(compile(base64.b64decode(secretcode), '<string>','exec'))
+
+
+##########################
+defaultdict
+https://stackoverflow.com/questions/5900578/how-does-collections-defaultdict-work
+##########################
+dict
+object_count_by_type = { key1 : value1,
+key2, value2
+}
+for k,v in object_count_by_type.iteritems():
+    print k, v
+
+#check if key exists in dict
+if key in object_count_by_type:
+    print object_count_by_type[key]
+else:
+    print "not exists"
+
+working with around half a million keys you get at least 10x performance boost when writing "key in dict" instead of "key in dict.keys()".
+
+#bad way 
+if key in object_count_by_type.keys():
+    print "key exists"
+
+##########################
+https://stackoverflow.com/questions/24180527/argparse-required-arguments-listed-under-optional-arguments
+Parameters starting with - or -- are usually considered optional. All other parameters are positional parameters and as such required by design (like positional function arguments).
+
+That being said, the headers “positional arguments” and “optional arguments” in the help are generated by two argument groups in which the arguments are automatically separated into. Now, you could “hack into it” and change the name of the optional ones, but a far more elegant solution would be to create another group for “required named arguments” (or whatever you want to call them):
+
+parser = argparse.ArgumentParser(description='Foo')
+parser.add_argument('-o', '--output', help='Output file name', default='stdout')
+requiredNamed = parser.add_argument_group('required named arguments')
+requiredNamed.add_argument('-i', '--input', help='Input file name', required=True)
+parser.parse_args(['-h'])
+
+##########################
+import datetime
+
+now = datetime.datetime.now()
+
+print
+print "Current date and time using str method of datetime object:"
+print str(now)
+
+print
+print "Current date and time using instance attributes:"
+print "Current year: %d" % now.year
+print "Current month: %d" % now.month
+print "Current day: %d" % now.day
+print "Current hour: %d" % now.hour
+print "Current minute: %d" % now.minute
+print "Current second: %d" % now.second
+print "Current microsecond: %d" % now.microsecond
+
+print
+print "Current date and time using strftime:"
+print now.strftime("%Y-%m-%d %H:%M")
+
+https://docs.python.org/3/library/time.html#time.strftime
+
+
+print
+print "Current date and time using isoformat:"
+print now.isoformat()
+##########################
+##########################
+

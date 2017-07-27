@@ -1,0 +1,274 @@
+#!/bin/ksh
+
+repos
+
+https://git.eng.idirect.net/cgit/cgit.cgi/Software/Shared/Core_Libs
+https://git.eng.idirect.net/cgit/cgit.cgi/Software/MSS/NMS_Lib
+https://git.eng.idirect.net/cgit/cgit.cgi/Software/MSS/Web_Core
+https://git.eng.idirect.net/cgit/cgit.cgi/Software/MSS/Update_Mgr
+
+git help <command>
+
+git help tutorial
+
+git help -a
+
+# quick usage help
+git command -h
+
+git clone -b feature/x  git@git.eng.idirect.net:sandbox sandbox2
+
+$ git config --global user.name 'Your Name'
+$ git config --global user.email you@somedomain.com
+
+git config --global --add branch.develop.mergeoptions "--no-ff"
+git config --global --add core.pager "less -F -X"
+
+#alias
+git config --global alias.unstage "reset HEAD"
+
+git unstage   ~  git reset HEAD 
+
+git status -s
+
+#show diff of unstaged changes
+git diff 
+#show diff of staged changes
+git diff --cached 
+#show diff of all staged or unstaged changes
+git diff HEAD 
+
+#show summary of changes instead of a full diff
+git diff --stat 
+
+#diff between two commits
+git difftool -t vimdiff c0e22d6 013df60  -- utils/utils.h
+git difftool -t vimdiff -C -M c0e22d6 013df60 -- "modular_ias/db_ias/velocity/init/stats_manager/initial_stats.sql"
+  -M
+       Detect renames.
+   -C
+       Detect copies as well as renames. See also --find-copies-harder.
+
+git difftool -t vimdiff commitsha file_path
+git difftool -t vimdiff 2bb6a56 modular_ias/db_ias/velocity/velocity_meta.json
+
+#records a snapshot of the staging area
+git commit -m
+
+#automatically stage all tracked, modified files before the commit
+git commit -am
+
+#unstage changes that you have staged
+git reset HEAD -- file
+
+$ git reset HEAD -- hello.rb 
+
+#remove the file from the staging area entirely and also off your disk (the working directory). 
+git rm file 
+
+#To leave the file in the working directory
+git rm --cached
+
+
+#list out the local branches that you have
+git branch
+
+#create a new branch
+git branch (branchname)
+
+#create and immediately switch to a branch
+git checkout -b (branchname) 
+
+#create a branch off from develop
+git checkout -b (branchname) develop
+
+#delete a branch
+git branch -d the_local_branch
+
+#To remove a remote branch (if you know what you are doing!)
+git push origin :the_remote_branch
+
+
+git log --oneline --graph
+
+#to easily see what commits are unique to which branches 
+#see the commits that are in the 'erlang' branch that are not in the 'master' branch
+git log --oneline erlang ^master
+git log branchA ^branchB
+
+git log --oneline --decorate --graph
+
+#look for only commits from a specific author
+$ git log --author=Linus --oneline -5
+
+#filter commits by date authored
+##--since and --before --until and --after
+#--no-merges to remove merge commits
+git log --oneline --before={3.weeks.ago} --after={2010-04-18} --no-merges
+
+#filter commits by commit message
+git log --grep=P4EDITOR --no-merges
+
+#messages with 'p4 depo' in them
+git log --grep="p4 depo" --format="%h %an %s"
+
+#OR
+#commits by Hausmann OR commits with "p4 depo" in the message
+git log --grep="p4 depo" --format="%h %an %s" --author="Hausmann"
+
+#AND
+#--all-match
+git log --grep="p4 depo" --format="%h %an %s" --author="Hausmann" --all-match
+
+git log --after="2014-7-1" --before="2014-7-4"
+
+git log --no-merges
+
+#list your remote aliases
+git remote -v
+
+#In a nutshell with git remote you can list our remote repositories and whatever URL that repository is using. You can use git remote add to add new remotes and git remote rm to delete existing ones
+git remote add [alias] [url] #That adds [url] under a local remote named [alias]
+git remote rm [alias]
+
+#download new branches and data from a remote repository
+git fetch
+
+#fetch from a remote repo and try to merge into the current branch
+git pull
+
+git fetch [alias]
+git merge [alias]/[branch]
+
+git merge --no-ff branch
+
+#push your new branches and data to a remote repository
+git push [alias] [branch]
+
+#-u flag (or --set-upstream) remote tracking branch
+#This sets the upstream association for any future push/pull attempts automatically.
+git push -u origin <feature_branch>
+
+#To avoid confusion, recent versions of git deprecate this somewhat ambiguous --set-upstream option 
+#in favor of a more verbose --set-upstream-tooption with identical syntax and behavior
+git branch --set-upstream-to <remote-branch>
+
+#git revert to undo changes on a public branch
+#and a tool for undoing commited changes
+git revert
+
+#to throw away all uncommitted changes
+#git reset should be reserved for undoing changes on a private branch
+#and for undoing uncommited changes
+git reset
+
+#remove last commit including uncommited changed
+#HEAD~1 means the commit before head
+#Assuming you are sitting on that commit, then this command will wack it
+git reset --hard HEAD~1
+
+OR
+#you could look at the output of git log, find the commit id of the commit you want to back up to, and then do this
+git reset --hard <sha1-commit-id>
+
+#rebase in interactive mode -i at the point just before the commit you want to whack.
+git rebase -i <commit>~1
+
+example:
+git rebase -i HEAD~10
+
+# ~10 means rebase the last 10 commits. Then, you can edit the file that Git presents to you to delete the offending commit. On saving that file, Git will then rewrite all the following commits as if the one you deleted didn't exist
+
+#If you want to extract specific files as they were in another commit
+git checkout <commit> -— <filename>
+
+git apply patch
+git apply --reject patch
+git apply --numstat patch
+
+#prepare a patch for a commit
+git format-patch -1 <commit>
+
+# apply the formatted patch
+git am patch
+
+#remove untracked files
+git clean -fd
+
+# change the last commit message
+git commit --amend -m  "CR CMMDR-116: UMD option file - change of Terminal options during test"
+
+git-rev-parse - Pick out and massage parameters
+git rev-parse --verify HEAD or git rev-parse --verify HEAD~0
+git rev-parse --verify HEAD^  or git rev-parse --verify HEAD~1
+git rev-parse --verify HEAD^^  or git rev-parse --verify HEAD~2
+git rev-parse --verify HEAD^^^  or git rev-parse --verify HEAD~3
+
+#current branch
+git rev-parse --abbrev-ref HEAD
+
+# show the symmetric difference of r1 and r2
+gitlogdf remotes/origin/feat/new_work...remotes/origin/stage
+#exclude commits from one branch and show the commits from 2nd branch only
+gitlogdf ^remotes/origin/feat/new_work remotes/origin/stage
+gitlogdf ^branch1 branch2 # commits that are common are not shown. commits that are in branch1 are excluded.
+
+git cherry-pick
+
+git-gc - Cleanup unnecessary files and optimize the local repository
+
+#crucible
+crucible.py -m "fixes generator to handle requests correctly when another action plan in-progress" -M sbandi -r Update_Service -f cr_138 -s http://jira.eng.idirect.net:8060/ -u sbandi CR-NMSBE  @amandlekar @dliu
+
+## merge other work
+git pull --rebase origin <branch>
+
+The --rebase option tells Git to move all of Mary’s commits to the tip of the master branch after synchronising it with the changes from the central repository
+
+#resolve merge conflicts
+git add <some-file>
+git rebase --continue
+or
+git rebase --abort
+git push origin <branch>
+
+#delete remote branch
+git push origin --delete feat/pulse-1570b
+
+#SAVE FRAGMENTS Shelve and restore incomplete changes
+
+#Temporarily stores all modified tracked files
+git stash
+
+The modifications stashed away by this command can be listed with git stash list,
+inspected with git stash show, and restored (potentially on top of a different commit)
+with git stash apply. 
+
+#Restores the most recently stashed files
+git stash pop
+
+#Lists all stashed changesets
+git stash list
+
+#Discards the most recently stashed changeset
+git stash drop
+
+#git show
+git show --name-only ea23ad70
+
+#old mode, new mode, old commit, new commit,A/M, filename
+git diff-tree --name-only -r ea23ad70
+git diff-tree --abbrev=8 -r ea23ad70
+git diff-tree --numstat -r ea23ad70
+git diff-tree --shortstat -r ea23ad70
+
+#git blame for deleted lines
+git log -S"Add NMS Cluster" -- modular_ias/db_ias/velocity/velocity_meta.json
+
+git blame --reverse START_SHA..END_SHA path/to/file
+
+https://github.com/arzzen/git-quick-stats
+git quick-stats
+
+
+

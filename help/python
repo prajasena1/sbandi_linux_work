@@ -1,0 +1,146 @@
+
+pydoc
+
+example: pydoc int
+
+modules
+    sys
+    os
+    datetime
+    time
+    re
+    getopt
+    signal
+    random
+
+    argparse
+    readline
+
+    dircache
+    tempfile
+    fnmatch
+    ntpath
+    shutil
+    difflib
+
+    tarfile
+    gzip
+
+
+    ConfigParser
+    StringIO
+
+    code
+
+    multiprocessing
+    threading
+    SocketServer
+    socket
+    webbrowser
+    websocket
+    urllib2
+
+    string
+
+    libxml2
+    hashlib
+
+    subprocess
+
+    syslog
+    logging
+
+    json
+    simplejson
+    pexpect
+
+    rpm
+    rpmUtils
+    yum
+
+    codecs
+    locale
+    platform
+
+operator
+pydoc /     #help on operator precendence
+
+import
+from
+class
+def
+lambda
+struct
+
+type
+object
+
+str
+string
+bytes
+bytearray
+
+int
+float
+
+list
+tuple
+array
+dict    {}
+
+set/frozenset
+hash
+
+try
+except
+pass
+
+print
+dir
+eval
+input
+glob
+
+#get requests so u can import
+#easy_install is comes with rpm python-setuptools
+easy_install requests
+
+wget http://repos.eng.idirect.net/mrepo/rhel-6Server-x86_64/RPMS.all/python-setuptools-0.6.10-3.el6.noarch.rpm
+rpm -iUvh python-setuptools-0.6.10-3.el6.noarch.rpm
+easy_install requests
+easy_install pip
+
+Python Package Index (PyPI)
+
+EasyInstall is not a fully fledged package manager. It cannot list local packages nor update them all.
+Pip and Python Package Manager (PyPM) are Python applications designed to fulfill a similar role as EasyInstall
+PyPM is inspired by Perl package manager (PPM).
+
+curl https://bootstrap.pypa.io/get-pip.py | python
+pip install requests
+pip uninstall some-package-name
+
+---------------------------------------
+obfuscate source
+
+python -OO -m py_compile dispatcher.py
+
+---------------------------------------
+vmware vca instal
+sudo yum install -y libffi-devel.x86_64
+sudo yum install -y openssl-devel.x86_64
+sudo yum install -y libxml2-devel.x86_64
+sudo yum install -y libxslt-devel.x86_64
+sudo yum install -y python-devel.x86_64
+sudo pip install cloudify-dsl-parser
+sudo pip install vca-cli
+sudo pip install vca-cli --upgrade
+sudo pip install pyopenssl ndg-httpsclient pyasn1
+sudo pip install urllib3
+sudo pip install urllib3[secure]
+---------------------------------------
+import os
+clear = lambda: os.system('clear')
+clear()
+---------------------------------------
+

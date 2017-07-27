@@ -1,0 +1,51 @@
+-----------------------------------------------------------------------------------------------
+# tc -s -d qdisc ls dev dsl
+qdisc htb 1: root refcnt 2 r2q 10 default 1 direct_packets_stat 0 ver 3.17
+ Sent 447262 bytes 1168 pkt (dropped 90, overlimits 38 requeues 0)
+ backlog 0b 0p requeues 0
+qdisc prio 2: parent 1:1 bands 6 priomap  1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1
+ Sent 447262 bytes 1168 pkt (dropped 90, overlimits 0 requeues 0)
+ backlog 0b 0p requeues 0
+qdisc bfifo 8043: parent 2:1 limit 1514b
+ Sent 84138 bytes 928 pkt (dropped 0, overlimits 0 requeues 0)
+ backlog 0b 0p requeues 0
+
+# tc -s -d class show dev dsl
+
+I was shaping traffic out of a tagged VLAN interface. The issue is, Linux does not set up a queue for a VLAN interface (i.e. txqueuelen is 0) and prefers to use the physical interface queue instead.
+Because of that, my bfifo qdiscs defaulted to a 1514 byte queue (as seen in the tc qdisc ls output), which is way too low, thus creating a bottleneck.
+
+The solution is to make sure the interface has its own queue:
+
+ifconfig dsl txqueuelen 20
+bfifo then defaults to a 30 KB (txqueuelen * MTU) queue, which solves the problem.
+
+-----------------------------------------------------------------------------------------------
+
+modprobe ifb numifbs=1
+
+ip link set dev ifb0 up
+tc qdisc del dev lo ingress
+tc qdisc del dev ifb0 root
+
+#
+# Create ingress on incoming interface (For upd rxer, lo is the incoming interface)
+tc qdisc add dev lo ingress
+
+# Forward all ingress traffic to the IFB device
+tc filter add dev lo parent ffff: protocol ip u32 match u32 0 0 action mirred egress redirect dev ifb0
+
+tc qdisc add dev ifb0 root handle 2: htb default 20
+    #default
+    tc class add dev ifb0 parent 2: classid 2:20 htb rate 1000Mbps
+    tc class add dev ifb0 parent 2: classid 2:1 htb rate 10kbit
+	tc class add dev ifb0 parent 2: classid 2:2 htb rate 10kbit ceil 10kbit
+        tc class add dev ifb0 parent 2:1 classid 2:10 htb rate 10kbit ceil 10kbit
+            tc qdisc add dev ifb0  handle 3: parent 2:10 netem delay 800ms 80ms loss 2% limit 10000
+
+tc filter add dev ifb0 parent 2: prio 1 protocol ip u32 match ip dst 10.99.105.1/32 flowid 2:10
+
+#display the qdisc, class and filter
+tc -s -d qdisc show dev ifb0
+tc -s -d class show dev ifb0
+tc -s -d filter show dev ifb0

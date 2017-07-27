@@ -1,0 +1,40 @@
+setsockopt
+struct addrinfo
+getaddrinfo     DNS request
+getnameinfo     reverse lookup
+
+select call : limits max fd FD_SETSIZE (1024 default)
+    socket is ready for IO
+
+Efficient alternatives for select (performance O(n))
+Linux   epoll O(1)
+BSD     kqueue
+Solaris evports and /dev/poll
+
+libevent : An abstracton  that wraps all the above interfaces (epoll, kqueue etc)
+
+epoll                (7)  - I/O event notification facility
+epoll_create         (2)  - open an epoll file descriptor
+epoll_create1 [epoll_create] (2)  - open an epoll file descriptor
+epoll_ctl            (2)  - control interface for an epoll descriptor
+epoll_pwait [epoll_wait] (2)  - wait for an I/O event on an epoll file descriptor
+epoll_wait           (2)  - wait for an I/O event on an epoll file descriptor
+
+select               (2)  - synchronous I/O multiplexing
+poll                 (2)  - wait for some event on a file descriptor
+poll                 (3p)  - input/output multiplexing
+
+
+getifaddrs           (3)  - get interface addresses
+freeifaddrs [getifaddrs] (3)  - get interface addresses
+
+ifconfig             (8)  - configure a network interface
+ifcfg                (8)  - simplistic script which replaces ifconfig IP managment
+vconfig              (8)  - VLAN (802.1q) configuration program
+
+
+ip                   (8)  - show / manipulate routing, devices, policy routing and tunnels
+
+
+UDP : Trivial FTP, DNS, SNMP
+

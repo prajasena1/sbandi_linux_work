@@ -1,0 +1,42 @@
+------------------------------------------
+C:\> echo y | pscp.exe -l user -pw password -ls 192.168.0.1:/
+
+echo y | pscp -i HKEY_USERS\Software\9bis.com\KiTTY\SshHostKeys -l idirect -pw iDirect -ls 172.20.163.27:/tmpx
+
+HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\SshHostKeys
+HKEY_USERS\.DEFAULT\Software\SimonTatham\PuTTY\SshHostkeys
+
+regedit and find the key
+------------------------------------------
+key mappings
+
+
+uk kb   VSphere Console
+-----  ----------
+    "   @
+    @   "
+    £   #
+    #   \
+    ~   |
+    ¬   ~  (on uk kb, key to the left of the numeral "1")
+    |   >
+    \   <
+------------------------------------------
+Tick and Back-tick
+
+There are no forwardtick keys available for the UK/US keyboards, however an alt code exists (Hold left Alt and type the numbers on your num pad).
+The below codes should work on any keyboard.
+
+Alt + 0180 = ´      (tick or forward tick)
+Alt + 96 = `        (back-tick)
+Alt + 39 = '        (single quote)
+------------------------------------------
+AltGr ALT GRaph key
+ALT-GR is a modifier key for typing third symbol
+Example:
+    AltGr+BackTick (Key left of Number 1)   ¦  (split vertical bar)
+------------------------------------------
+------------------------------------------
+------------------------------------------
+------------------------------------------
+------------------------------------------

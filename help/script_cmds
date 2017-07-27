@@ -1,0 +1,24 @@
+for repo in `echo NMS_Core_Libs NMS_ICD_API NMS_Lib  NMS_Cluster Cluster_Components Cluster_Core Update_Service Configuration_BE`
+do
+    cd $repo;   . ~/bin/idirect_rpm_build.sh;   cd -
+done
+
+for repo in `echo NMS_Core_Libs NMS_ICD_API NMS_Lib  NMS_Cluster Cluster_Components Cluster_Core Update_Service Configuration_BE`
+do
+    cd $repo;  sudo rm -rf build_output/;   cd -
+done
+for repo in `echo NMS_Cluster Cluster_Components Cluster_Core Configuration_BE`
+do
+    cd $repo;   makec; cd -
+done
+
+#split line into different bash varaibles
+#IFS must be changed
+#We need the 'here string' i.e <<< in this case, because the read command does not read from a pipe and instead reads from stdin
+for line in `awk -F "|" '{print $1 $3}' inmarsat_orphaned_loid.txt|sort -nr -u | head -250`
+do
+    read oid footprint <<< $(echo $line)
+    echo "oid=$oid"
+    echo "footprint=$footprint"
+done
+
