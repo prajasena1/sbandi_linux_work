@@ -107,7 +107,7 @@ namespace MonsterGame
             {
                 if (debug_level) std::cout << itor->GetId() << " moved from " << from_loc << " to " << destination << "\n";
                 itor->SetLocation(destination);
-                m_destination_loc.emplace(destination, &(*itor));
+                m_destination_loc.emplace(destination, itor);
                 ++itor;
                 ++num_moved_ahead;
             }
@@ -136,6 +136,8 @@ namespace MonsterGame
                      ++same_key_itor)
                 {
                     msg_out << " " << same_key_itor->second->GetId();
+                    // Monster die
+                    m_monsters_in_action.erase(same_key_itor->second);
                 }
                 msg_out << "!";
 
