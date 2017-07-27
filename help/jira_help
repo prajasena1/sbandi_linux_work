@@ -1,0 +1,14 @@
+Filters
+
+    assignee in (mangel, jbravo, lczaplyski, kfrazier, cjones, nsoundararajan, drosales, jdunn, ajahansir) AND NOT attachments is EMPTY
+
+    project = PULSE AND summary ~ x509 AND reporter in (currentUser())
+
+    watcher = currentUser() ORDER BY createdDate DESC
+
+    assignee = currentUser() AND resolution = Unresolved ORDER BY updatedDate DESC
+
+    project = pulse AND "Is TechPubs Documentation required" is not EMPTY AND fixVersion = "2016Q3 (2.2)" ORDER BY cf[13400] ASC
+
+    "Epic Link" = PULSE-4682 AND status not in (Rejected, Closed) AND "Is TechPubs Documentation required" = "Yes, Document it"
+

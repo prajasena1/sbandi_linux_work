@@ -1,0 +1,256 @@
+idempotent -- denoting an element of a set which is unchanged in value when multiplied or otherwise operated on by itself
+
+pip install ansible
+        or 
+avaialable through yum repo epel.repo (better)
+
+----------------------------------------------------------------------------------------------
+/etc/ansible/ansible.cfg
+    /usr/lib/python2.6/site-packages/ansible/utils/color.py
+
+     export ANSIBLE_COLOR_CHANGED=purple
+----------------------------------------------------------------------------------------------
+my ansible work
+    /home/sbandi/settings/snc/post_snc_install/
+    ~/bin/ansible/
+----------------------------------------------------------------------------------------------
+uFTP – multicast FTP
+http://uftp-multicast.sourceforge.net/
+
+X7EC ansible repo:
+https://git.eng.idirect.net/cgit/cgit.cgi/Software/Teton/Ubuntu/tree/test/playbooks?h=develop
+
+Pulse ansible repo:
+https://git.eng.idirect.net/cgit/cgit.cgi/Software/MSS/NMS_Dev_Tools/tree/ansible?h=develop
+----------------------------------------------------------------------------------------------
+
+/etc/ansible/hosts  inventory file
+/etc/ansible/ansible.cfg        ~/.ansible.cfg
+
+-v or -vv or -vvv  three levels of verbose
+
+--ask-pass 
+    authentication can also be used where needed by supplying the option 
+
+-u
+    Ansible will attempt to remote connect to the machines using your current user name, just like SSH would.
+    To override the remote user name, just use the ‘-u’ parameter.
+
+--become
+    deprecated --sudo
+        sudoing to root
+
+--become --become-method=su
+
+--become-user
+    (previously --sudo-user)
+
+--ask-become-pass
+    sudo features and when sudo requires a password
+    previously --ask-sudo-pass which has been deprecated
+
+https://ansible-tips-and-tricks.readthedocs.io/en/latest/ansible/commands/
+
+ad-hoc commands examples
+    http://docs.ansible.com/ansible/intro_adhoc.html
+    #check where is umd running
+    ansible scale1 -i /tmp/inv -a "ps -f -C umd" -f 4 -u idirect --ask-pass
+
+    #sudo and tail log
+    ansible scale1 -i /tmp/inv -a "tail -5 /var/log/messages" -f 4 -u idirect --ask-pass --become
+
+    ansible all -m setup -i /tmp/inv -u idirect --ask-pass
+
+    ansible atlanta -m copy -a "src=/etc/hosts dest=/tmp/hosts"
+    
+    #The file module allows changing ownership and permissions on files. These same options can be passed directly to the copy module as well:
+
+    ansible webservers -m file -a "dest=/srv/foo/a.txt mode=600"
+    ansible webservers -m file -a "dest=/srv/foo/b.txt mode=600 owner=mdehaan group=mdehaan"
+
+    #The file module can also create directories, similar to mkdir -p:
+    ansible webservers -m file -a "dest=/path/to/c mode=755 owner=mdehaan group=mdehaan state=directory"
+
+    #As well as delete directories (recursively) and delete files:
+    ansible webservers -m file -a "dest=/path/to/c state=absent"
+
+    ansible 172.20.131.2 -i "172.20.131.2," -m shell  -a "tail -10 /var/log/messages" -f10 -u idirect --ask-pass --become --become-method=su --become-user=root --ask-become-pass
+
+    ansible 288 -i ./inventory_inmarsat.ansible -m shell  -a "tail -10 /var/log/messages" -f10 -u idirect --ask-pass --become --become-method=su --become-user=root --ask-become-pass
+
+    ansible 288 -i dynamic_inv/inventory_inmarsat.ansible -m shell  -a "uptime" -f10 -u idirect --extra-vars "ansible_ssh_pass=PM0lonNOC"
+
+    ansible all -i "10.1.242.121," -m ping --extra-vars "ansible_ssh_pass=iDirect ansible_user=idirect"
+    ansible all -i "10.1.242.121," -m shell -a "rpm -q redhat-release-server; sleep 1; date" --extra-vars "ansible_ssh_pass=iDirect ansible_user=idirect"
+
+
+#If you wanted to just run the “configuration” and “packages” part of a very long playbook, you could do this
+ansible-playbook example.yml --tags "configuration,packages"
+
+On the other hand, if you want to run a playbook without certain tasks, you could do this:
+ansible-playbook example.yml --skip-tags "notification"
+
+-----------------------------------------------------------------------------
+command - Executes a command on a remote node
+Variables like $HOME and operations like "<", ">", "|", and "&" will not work
+(use the shell module if you need these features).
+
+# Example from Ansible Playbooks.
+- command: /sbin/shutdown -t now
+
+# Run the command if the specified file does not exist.
+- command: /usr/bin/make_database.sh arg1 arg2 creates=/path/to/database
+
+# You can also use the 'args' form to provide the options. This command
+# will change the working directory to somedir/ and will only run when
+# /path/to/database doesn't exist.
+- command: /usr/bin/make_database.sh arg1 arg2
+  args:
+    chdir: somedir/
+    creates: /path/to/database
+
+-----------------------------------------------------------------------------
+shell - execute commands in nodes
+It is almost exactly like the command module but runs the command through a shell (/bin/sh) on the remote node.
+
+# Execute the command in remote shell; stdout goes to the specified
+# file on the remote.
+- shell: somescript.sh >> somelog.txt
+
+# Change the working directory to somedir/ before executing the command.
+- shell: somescript.sh >> somelog.txt chdir=somedir/
+
+# You can also use the 'args' form to provide the options. This command
+# will change the working directory to somedir/ and will only run when
+# somedir/somelog.txt doesn't exist.
+- shell: somescript.sh >> somelog.txt
+  args:
+    chdir: somedir/
+    creates: somelog.txt
+
+# Run a command that uses non-posix shell-isms (in this example /bin/sh
+# doesn't handle redirection and wildcards together but bash does)
+- shell: cat < /tmp/*txt
+  args:
+    executable: /bin/bash
+-----------------------------------------------------------------------------
+multiple commands in single task
+
+- command: chdir=/src/package/ {{ item }}
+  with_items:
+  - ./configure
+  - /usr/bin/make
+  - /usr/bin/make install
+
+-----------------------------------------------------------------------------
+The things listed in the notify: section of a task are called handlers.
+
+Handlers are best used to restart services and trigger reboots. You probably won’t need them for much else.
+
+If the play still has a ‘tasks’ section, those tasks are executed after roles are applied.
+
+If you want to define certain tasks to happen before AND after roles are applied, 
+use pre_tasks, tasks and post_tasks.
+
+
+-----------------------------------------------------------------------------
+To see what hosts would be affected by a playbook before you run it, you can do this:
+
+ansible-playbook playbook.yml --list-hosts
+
+to see detailed output from successful modules as well as unsuccessful ones
+--verbose
+
+-----------------------------------------------------------------------------
+# file: hosts
+[office]
+imac-1.local
+imac-2.local
+imac-3.local
+
+Playbook targeting a single host:
+    $ ansible-playbook user.yml --extra-vars "target=imac-2.local" --list-hosts
+
+Playbook with a group of hosts:
+    $ ansible-playbook user.yml --extra-vars "target=office" --list-hosts
+
+There's also a cute little trick that lets you specify a single host on the command line (or multiple hosts, I guess), without an intermediary inventory
+    #Note the comma (,) at the end; this signals that it's a list, not a file.
+    #Now, this won't protect you if you accidentally pass a real inventory file in, 
+    #so it may not be a good solution to this specific problem. But it's a handy trick to know!
+    ansible-playbook -i "imac1-local," user.yml
+
+Now, to run the command on all devices, you have to explicty set the target variable to "all"
+    $ansible-playbook user.yml --extra-vars "target=all"
+And to limit it down to a specific pattern, you can set target=pattern_here
+    $ ansible-playbook user.yml --extra-vars "target=all" --limit imac-1* --list-hosts
+
+ansible-playbook release.yml --extra-vars "version=1.23.45 other_variable=foo"
+
+
+-----------------------------------------------------------------------------
+[all:vars]
+ansible_ssh_pass=iDirect
+ansible_become_pass=iDirect
+ansible_become_method=su
+ansible_user=idirect
+ansible_become_user=root
+
+-----------------------------------------------------------------------------
+Playbook - Group Variables
+
+You can set variables that apply to all hosts by using the playbook layout specified in Ansible's Best Practices document
+and creating a group_vars/all file where you define them.
+
+---
+# file: group_vars/all
+ansible_connection: ssh 
+ansible_ssh_user: vagrant 
+ansible_ssh_pass: vagrant
+-----------------------------------------------------------------------------
+debug module
+    http://docs.ansible.com/ansible/debug_module.html
+    
+    verbosity A number that controls when the debug is run, if you set to 3 it will only run debug when -vvv or above
+
+- shell: /usr/bin/uptime
+  register: result
+
+- debug:
+    var: result
+    verbosity: 2
+
+-----------------------------------------------------------------------------
+- name: Wait for server to comeup after setup
+  local_action:
+    module: wait_for
+      host={{ ansible_ssh_host }}
+      port=22
+      delay=1
+      timeout=300
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+

@@ -1,0 +1,31 @@
+curl -XGET 'localhost:9200/cars/transactions/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+    "size" : 0,
+    "aggs" : { 
+        "popular_colors" : { 
+            "terms" : { 
+              "field" : "color"
+            }
+        }
+    }
+}
+'
+curl -XGET 'localhost:9200/cars/transactions/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+   "size" : 0,
+   "aggs": {
+      "colors": {
+         "terms": {
+            "field": "color"
+         },
+         "aggs": { 
+            "avg_price": { 
+               "avg": {
+                  "field": "price" 
+               }
+            }
+         }
+      }
+   }
+}
+'

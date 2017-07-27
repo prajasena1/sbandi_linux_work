@@ -1,0 +1,78 @@
+-------------------------------------------------------------------------------------------------------------
+~/help/python_earth_sciences
+-------------------------------------------------------------------------------------------------------------
+ECMWF
+    9km (Before Mar 2016 - 16km)
+ Ensemble forecasts
+    18km up to forecast day 15 and 36 km thereafter
+    (Before Mar 2016 32 km up to forecast day 10 and 64 km thereafter)
+-------------------------------------------------------------------------------------------------------------
+
+sudo pip install https://software.ecmwf.int/wiki/download/attachments/56664858/ecmwf-api-client-python.tgz
+
+
+ERA-interim 
+    http://apps.ecmwf.int/datasets/data/interim_full_daily/ 
+
+Public
+    https://software.ecmwf.int/wiki/display/WEBAPI/Access+ECMWF+Public+Datasets
+
+    http://apps.ecmwf.int/datasets/
+
+    https://software.ecmwf.int/wiki/display/WEBAPI/2017/01/30/New+Public+Dataset%3A+CERA-20C+daily
+
+-------------------------------------------------------------------------------------------------------------
+Member states NWS
+    https://software.ecmwf.int/wiki/display/WEBAPI/Access+MARS
+
+
+https://software.ecmwf.int/wiki/display/WEBAPI/WebAPI+FAQ
+
+MARS stands for Meteorological Archive System.
+MARS is the ECMWF archival system which handles the requests that are submitted externally through the Web-API.
+
+
+Job lists
+    http://apps.ecmwf.int/webmars/joblist/
+
+-------------------------------------------------------------------------------------------------------------
+sudo yum install -y cmake.x86_64
+sudo yum install -y libcurl-devel.x86_64 curl.x86_64 libcurl.x86_64
+sudo yum install -y fftw-devel.x86_64
+sudo yum install -y boost-devel.x86_64
+sudo yum install -y expat-devel.x86_64
+sudo yum install -y zlib-devel.x86_64
+sudo yum install -y libpng-devel.x86_64
+sudo yum install -y qt-devel.x86_64
+
+ eccodes-2.2.0-Source.tar.gz    https://software.ecmwf.int/wiki/display/ECC/Releases
+ libemos-4.4.7-Source.tar.gz    https://software.ecmwf.int/wiki/display/EMOS/Releases (requires FFTW devel)
+ Magics-2.32.0-Source.tar.gz    https://software.ecmwf.int/wiki/display/MAGP/Releases (compile for Metview and Qt)
+ Metview-4.8.4-Source.tar.gz    https://software.ecmwf.int/wiki/display/METV/Releases
+-------------------------------------------------------------------------------------------------------------
+server = ECMWFDataServer()
+server.retrieve() 
+# key words
+https://software.ecmwf.int/wiki/display/UDOC/Identification+keywords#Identificationkeywords-type
+
+-------------------------------------------------------------------------------------------------------------
+several namespaces
+    parameter
+    time
+    geography
+    vertical
+    statistics
+    mars
+
+grib_ls -n <name_space> <grib_file>
+Example: grib_ls -n time 2016-01-sfc.grib|more
+
+grib_ls -p shortName -w shortName:s=10u/10v,dataDate:i=20160110,dataTime:i=1800 -l 18.87,79.4 2016-01-sfc.grib|more
+grib_ls -p shortName -w paramId:i=165/166,dataDate:i=20160110,dataTime:i=1800 -l 18.87,79.4 2016-01-sfc.grib|more
+
+grib_get -p dataDate:s,dataTime:s,shortName:s -w shortName:s=10u/10v -l 14.5764708,78.28036,1 2012-03-sfc.grib
+
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------

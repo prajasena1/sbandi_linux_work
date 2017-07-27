@@ -1,0 +1,67 @@
+Cloud
+-----------
+    Amazon EC2
+    Google Cloud Platform
+    MS Azure
+    RackSpace
+    OpenStack
+    SoftLayer IBM
+
+Config Mgmt
+-----------
+    Agent Based
+        Puppet manifest
+        Chef  recepie and chef cooks
+        Salt(Stack)
+        CFEngine
+
+    Agent Less
+        Ansible 
+
+Build Automation
+-----------
+    Java world Maven
+
+Creation and Deployment of Virtual Deployment Env
+-----------
+    Vagrant
+    Docker
+
+OS-Level Virtualization
+    FreeBSD jail
+    Linux-VServer
+    Linux OpenVZ
+    LXC 
+    Solaris Containers
+    AIX WPAR (Workload Partition)
+
+Hypervisor Based
+    VMWare ESX
+    Linux KVM
+    MS Hyper-v
+    Citrix XenServer
+
+Continuous Integration
+    Jenkins
+    Strider
+    Travis
+
+PaaS like deployment
+    Dokku
+    Deis
+    Flynn
+
+Multi-node orchestration
+    Maestro
+    Salt
+    Mesos
+    Openstack Nova
+
+Management Dashboards
+    docker-ui
+    Openstack Horizon
+    Shipyard
+
+    
+
+

@@ -1,0 +1,9 @@
+Export with parfiles info (eg 5.1):
+-----------------------------------
+To export the config data type :
+
+exp $DATABASE parfile=parfile_51_exp_config.dat
+
+This will create the file "expconfig51.dmp"
+
+To export the Customer and Account Data. Edit the attached parfile_51_acc_data.dat and parfile_51_cust_data.dat par files and insert the Customer / Account as detailed in the parfile. Then using the same format as above eg "exp $DATABASE parfile= xx" export both the Customer and Account details using the parfiles.

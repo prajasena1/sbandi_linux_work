@@ -1,0 +1,155 @@
+>>> from pydoc import Helper
+>>> helper = Helper()
+>>> Helper.listtopics(helper)
+
+or
+pydoc topics
+
+Here is a list of available topics.  Enter any topic name to get more help.
+
+ASSERTION           DEBUGGING           LITERALS            SEQUENCEMETHODS2
+ASSIGNMENT          DELETION            LOOPING             SEQUENCES
+ATTRIBUTEMETHODS    DICTIONARIES        MAPPINGMETHODS      SHIFTING
+ATTRIBUTES          DICTIONARYLITERALS  MAPPINGS            SLICINGS
+AUGMENTEDASSIGNMENT DYNAMICFEATURES     METHODS             SPECIALATTRIBUTES
+BACKQUOTES          ELLIPSIS            MODULES             SPECIALIDENTIFIERS
+BASICMETHODS        EXCEPTIONS          NAMESPACES          SPECIALMETHODS
+BINARY              EXECUTION           NONE                STRINGMETHODS
+BITWISE             EXPRESSIONS         NUMBERMETHODS       STRINGS
+BOOLEAN             FILES               NUMBERS             SUBSCRIPTS
+CALLABLEMETHODS     FLOAT               OBJECTS             TRACEBACKS
+CALLS               FORMATTING          OPERATORS           TRUTHVALUE
+CLASSES             FRAMEOBJECTS        PACKAGES            TUPLELITERALS
+CODEOBJECTS         FRAMES              POWER               TUPLES
+COERCIONS           FUNCTIONS           PRECEDENCE          TYPEOBJECTS
+COMPARISON          IDENTIFIERS         PRINTING            TYPES
+COMPLEX             IMPORTING           PRIVATENAMES        UNARY
+CONDITIONAL         INTEGER             RETURNING           UNICODE
+CONTEXTMANAGERS     LISTLITERALS        SCOPING
+CONVERSIONS         LISTS               SEQUENCEMETHODS1
+
+>>> Helper.listkeywords(helper)
+or
+pydoc keywords
+
+Here is a list of the Python keywords.  Enter any keyword to get more help.
+
+and                 elif                if                  print
+as                  else                import              raise
+assert              except              in                  return
+break               exec                is                  try
+class               finally             lambda              while
+continue            for                 not                 with
+def                 from                or                  yield
+del                 global              pass
+
+>>> Helper.listmodules(helper)
+or
+pydoc modules
+
+Please wait a moment while I gather a list of all available modules...
+
+ANSI                binhex              iotop               rlcompleter
+BaseHTTPServer      bisect              ipachangeconf       robotparser
+Bastion             bsddb               ipaclient           rpm
+CDROM               bz2                 ipalib              rpmUtils
+CGIHTTPServer       cPickle             ipapython           runpy
+Canvas              cProfile            itertools           sched
+ConfigParser        cStringIO           iwlib               screen
+Cookie              cairo               json                select
+Crypto              calendar            kerberos            sets
+DLFCN               cas                 keyword             setuptools
+Dialog              cgi                 ldap                sgmllib
+DocXMLRPCServer     cgitb               ldapurl             sha
+FSM                 chunk               ldif                shelve
+FileDialog          cmath               lib2to3             shlex
+FixTk               cmd                 libxml2             shutil
+HTMLParser          code                libxml2mod          signal
+IN                  codecs              linecache           simplejson
+M2Crypto            codeop              linuxaudiodev       site
+MimeWriter          collections         locale              smtpd
+OpenSSL             colorsys            logging             smtplib
+Queue               commands            lxml                snack
+SSSDConfig          compileall          macpath             sndhdr
+ScrolledText        compiler            macurl2path         socket
+SimpleDialog        contextlib          mailbox             sos
+SimpleHTTPServer    cookielib           mailcap             spwd
+SimpleXMLRPCServer  copy                markupbase          sqlite3
+SocketServer        copy_reg            marshal             sqlitecachec
+StringIO            crm                 math                sre
+TYPES               crypt               matplotlib          sre_compile
+Tix                 csv                 md5                 sre_constants
+Tkconstants         ctypes              mhlib               sre_parse
+Tkdnd               curl                mimetools           ssl
+Tkinter             curses              mimetypes           sssd_upgrade_config
+UserDict            datetime            mimify              stat
+UserList            dateutil            mmap                statvfs
+UserString          dbhash              modulefinder        string
+_LWPCookieJar       dbm                 mpl_toolkits        stringold
+_MozillaCookieJar   dbus                multifile           stringprep
+__builtin__         dbus_bindings       multiprocessing     strop
+__future__          decimal             mutex               struct
+_abcoll             default_encoding_utf8 netaddr             subprocess
+_ast                difflib             netrc               suds
+_bisect             dircache            new                 sunau
+_bsddb              dis                 nis                 sunaudio
+_bytesio            distutils           nntplib             symbol
+_codecs             dl                  nose                symtable
+_codecs_cn          dmidecode           nss                 sys
+_codecs_hk          dmidecodemod        ntpath              syslog
+_codecs_iso2022     doctest             nturl2path          tabnanny
+_codecs_jp          drv_libxml2         numbers             tarfile
+_codecs_kr          dsextras            numpy               telnetlib
+_codecs_tw          dsml                opcode              tempfile
+_collections        dumbdbm             operator            termios
+_crypt              dummy_thread        optparse            test
+_csv                dummy_threading     os                  textwrap
+_ctypes             easy_install        os2emxpath          this
+_curses             email               ossaudiodev         thread
+_curses_panel       encodings           paramiko            threading
+_dbus_bindings      errno               parser              time
+_dbus_glib_bindings ethtool             pdb                 timeit
+_elementtree        exceptions          pexpect             timing
+_fileio             fcntl               pickle              tkColorChooser
+_functools          fdpexpect           pickletools         tkCommonDialog
+_hashlib            filecmp             pipes               tkFileDialog
+_heapq              fileinput           pkg_resources       tkFont
+_hotshot            fnmatch             pkgutil             tkMessageBox
+_json               formatter           platform            tkSimpleDialog
+_ldap               fpformat            plistlib            toaiff
+_locale             fractions           popen2              token
+_lsprof             ftplib              poplib              tokenize
+_multibytecodec     functools           posix               trace
+_multiprocessing    future_builtins     posixfile           traceback
+_random             gc                  posixpath           tty
+_snack              gdbm                pprint              turtle
+_socket             genericpath         profile             types
+_sqlite3            getopt              pstats              unicodedata
+_sqlitecache        getpass             pty                 unittest
+_sre                gettext             pwd                 urlgrabber
+_ssl                gio                 pxssh               urllib
+_strptime           glib                py_compile          urllib2
+_struct             glob                pyclbr              urlparse
+_symtable           gobject             pycurl              user
+_threading_local    gpgme               pydoc               uu
+_tkinter            grp                 pydoc_topics        uuid
+_warnings           gudev               pyexpat             warnings
+_weakref            gzip                pygtk               wave
+_xmlplus            hashlib             pyhbac              weakref
+abc                 heapq               pylab               webbrowser
+abrt_exception_handler hmac                pysss               whichdb
+acutil              hotshot             pytz                wireshark_be
+aifc                htmlentitydefs      quopri              wireshark_gen
+anydbm              htmllib             random              wsgiref
+argparse            httplib             rbtools             xdrlib
+array               idlelib             re                  xml
+ast                 ihooks              readline            xmllib
+asynchat            imageop             report              xmlrpclib
+asyncore            imaplib             reportclient        xxsubtype
+atexit              imghdr              repr                yum
+audiodev            imp                 resource            yumutils
+audioop             imputil             rexec               zipfile
+base64              iniparse            rfc822              zipimport
+bdb                 inspect             rhn                 zlib
+binascii            io                  rhsm
+

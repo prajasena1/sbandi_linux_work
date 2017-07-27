@@ -1,0 +1,88 @@
+setup of Devel::NYTProf
+-------------------------------------------------------------------------------------
+1) install 
+ yum install -y perl-CPAN.x86_64
+ yum install -y gcc-c++.x86_64 
+
+wget http://repos.eng.idirect.net/mrepo/rhel-6Server-x86_64/RPMS.all/perl-CPAN-1.9402-141.el6_7.1.x86_64.rpm
+
+#How do I tell cpan to install all dependencies?
+perl -MCPAN -e 'my $c = "CPAN::HandleConfig"; $c->load(doit => 1, autoconfig => 1); $c->edit(prerequisites_policy => "follow"); $c->edit(build_requires_install_policy => "yes"); $c->commit'
+
+cpan
+>> install Devel::NYTProf
+
+#check below to verify all installed correctly
+nytprofpf  --help
+nytprofcg --help
+nytprofhtml --help
+
+-------------------------------------------------------------------------------------
+ 
+2a)  Configuration
+
+permissions to /var/lib/pgsql
+chmod 777 /var/lib/pgsql
+
+vi /etc/rc.d/init.d/httpd /etc/init/idirect-apache.conf  /etc/sysconfig/httpd
+
+export NYTPROF='file=/var/lib/pgsql/nytprof.out:out:addpid=1:endatexit=1:savesrc=1'
+# Source function library.
+
+pre-start script
+    export NYTPROF='file=/var/lib/pgsql/nytprof.out:out:addpid=1:endatexit=1:savesrc=1'
+
+-------------------------------------------------------------------------------------
+2b) 
+vi /srv/nmsweb/conf/hypnotoad.json  /etc/httpd/conf/httpd.conf
+	      4         "workers" : 2,
+
+PerlPassEnv NYTPROF
+PerlModule Devel::NYTProf::Apache
+
+<IfModule prefork.c>
+        StartServers    2
+        MinSpareServers 2
+        MaxSpareServers 2
+        ServerLimit     2
+        MaxClients      2
+        MaxRequestsPerChild 0
+</IfModule>
+
+        <Perl>
+                $ENV{MOJO_MODE} = 'production';
+                $ENV{NYTPROF} = 'file=/var/lib/pgsql/nytprof.out:out:addpid=1:endatexit=1:savesrc=1';
+        </Perl>
+        <Location />
+                        SetHandler      modperl
+                        PerlSetEnv      NYTPROF /var/lib/pgsql/nytprof.out:out:addpid=1:endatexit=1:savesrc=1
+        </Location>
+
+        <Location /perl-status>
+                        SetHandler          modperl
+                        PerlSetEnv      NYTPROF /var/lib/pgsql/nytprof.out:out:addpid=1:endatexit=1:savesrc=1
+        </Location>
+
+---------------------------------------------------------------------------------------------------------
+3)
+initctl status idirect-apache
+ 
+4) command line
+perl -d:NYTProf ./web_req.pl
+
+5) Analyze profile output
+
+nytprofcg
+nytprofhtml --file=./nytprof.14786.out.14786
+
+nytprofhtml --file=./nytprof.30377.out.30377  --no-flame
+
+ tar -czf nytprof.tar.gz nytprof/
+
+---------------------------------------------------------------------------------------------------------
+perl -d:NYTProf $(which morbo)  --listen http://:10020 --watch=nmsweb/lib /srv/nmsweb/script/nmsweb
+perl -d:NYTProf $(which morbo) /srv/nmsweb/script/nmsweb --listen http://:10020 --watch=nmsweb/lib
+
+/srv/nmsweb/script/nmsweb daemon --listen http://10.1.242.103:10020
+
+---------------------------------------------------------------------------------------------------------

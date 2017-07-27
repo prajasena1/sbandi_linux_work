@@ -1,0 +1,14 @@
+curl -XDELETE 'localhost:9200/my_index?pretty'
+curl -XPUT 'localhost:9200/my_index?pretty' -H 'Content-Type: application/json' -d'
+{ "settings": { "number_of_shards": 1 }}
+'
+curl -XPOST 'localhost:9200/my_index/my_type/_bulk?pretty' -H 'Content-Type: application/json' -d'
+{ "index": { "_id": 1 }}
+{ "title": "The quick brown fox" }
+{ "index": { "_id": 2 }}
+{ "title": "The quick brown fox jumps over the lazy dog" }
+{ "index": { "_id": 3 }}
+{ "title": "The quick brown fox jumps over the quick dog" }
+{ "index": { "_id": 4 }}
+{ "title": "Brown fox brown dog" }
+'

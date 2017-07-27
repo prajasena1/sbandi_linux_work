@@ -1,0 +1,111 @@
+On Host 1 (10.1.242.198) (This will represent NMS Server)
+---------------------------------------------------------------------------
+# Add IP Routes
+ip route add 10.99.2.1 via 10.1.242.201
+ip route add 10.99.2.2 via 10.1.242.201
+ip route add 10.99.2.3 via 10.1.242.201
+ip route add 10.99.2.4 via 10.1.242.201
+ip route add 10.99.2.5 via 10.1.242.201
+ip route add 10.99.2.6 via 10.1.242.201
+
+On Host 2 (10.1.242.201) (This will represent Update Rxer Simulator Server)
+---------------------------------------------------------------------------
+# Add IP Addresses
+ip addr add 10.99.2.1 dev eth0
+ip addr add 10.99.2.2 dev eth0
+ip addr add 10.99.2.3 dev eth0
+ip addr add 10.99.2.4 dev eth0
+ip addr add 10.99.2.5 dev eth0
+ip addr add 10.99.2.6 dev eth0
+
+# Clear out existing tc qdisc config
+tc qdisc del dev eth0 root 
+
+# Create root of tree
+tc qdisc add dev eth0 handle 1: root htb default 1
+
+# Create default root class
+tc class add dev eth0 parent 1: classid 1:1 htb rate 1000Mbps
+
+# Create child classes
+tc class add dev eth0 parent 1:1 classid 1:11 htb rate 100Mbps ceil 1000Mbps
+tc class add dev eth0 parent 1:1 classid 1:12 htb rate 100Mbps ceil 1000Mbps
+tc class add dev eth0 parent 1:1 classid 1:13 htb rate 100Mbps ceil 1000Mbps
+tc class add dev eth0 parent 1:1 classid 1:14 htb rate 100Mbps ceil 1000Mbps
+tc class add dev eth0 parent 1:1 classid 1:15 htb rate 100Mbps ceil 1000Mbps
+tc class add dev eth0 parent 1:1 classid 1:16 htb rate 100Mbps ceil 1000Mbps
+
+#Apply rules to child classes. 
+#Here first value is latency and second value is jitter.
+#So for a delay range of 5ms to 15ms we can specify 10ms 5ms
+#We can add packet loss/corruption/duplicate/reorder etc params as well here 
+
+tc qdisc add dev eth0 parent 1:11 handle 11: netem delay 10ms 1ms loss 1%
+tc qdisc add dev eth0 parent 1:12 handle 12: netem delay 20ms 2ms loss 2%
+tc qdisc add dev eth0 parent 1:13 handle 13: netem delay 30ms 3ms loss 3%
+tc qdisc add dev eth0 parent 1:14 handle 14: netem delay 40ms 4ms loss 4%
+tc qdisc add dev eth0 parent 1:15 handle 15: netem delay 50ms 5ms loss 5%
+tc qdisc add dev eth0 parent 1:16 handle 16: netem delay 60ms 6ms loss 6%
+
+# Apply IP Filter
+tc filter add dev eth0 protocol ip prio 1 u32 match ip src 10.99.2.1 flowid 1:11
+tc filter add dev eth0 protocol ip prio 1 u32 match ip src 10.99.2.2 flowid 1:12
+tc filter add dev eth0 protocol ip prio 1 u32 match ip src 10.99.2.3 flowid 1:13
+tc filter add dev eth0 protocol ip prio 1 u32 match ip src 10.99.2.4 flowid 1:14
+tc filter add dev eth0 protocol ip prio 1 u32 match ip src 10.99.2.5 flowid 1:15
+tc filter add dev eth0 protocol ip prio 1 u32 match ip src 10.99.2.6 flowid 1:16
+
+# Show current tc qdisc setup 
+tc -s -d qdisc
+
+On Host 1 (10.1.242.198)
+
+[root@Pulse_GA_SNC_VM idirect]# ping -c 5 10.99.2.1
+PING 10.99.2.1 (10.99.2.1) 56(84) bytes of data.
+64 bytes from 10.99.2.1: icmp_seq=1 ttl=64 time=10.9 ms
+64 bytes from 10.99.2.1: icmp_seq=2 ttl=64 time=11.4 ms
+64 bytes from 10.99.2.1: icmp_seq=3 ttl=64 time=11.0 ms
+64 bytes from 10.99.2.1: icmp_seq=4 ttl=64 time=9.49 ms
+64 bytes from 10.99.2.1: icmp_seq=5 ttl=64 time=9.41 ms
+
+[root@Pulse_GA_SNC_VM idirect]# ping -c 5 10.99.2.2
+PING 10.99.2.2 (10.99.2.2) 56(84) bytes of data.
+64 bytes from 10.99.2.2: icmp_seq=1 ttl=64 time=21.5 ms
+64 bytes from 10.99.2.2: icmp_seq=2 ttl=64 time=18.7 ms
+64 bytes from 10.99.2.2: icmp_seq=3 ttl=64 time=19.7 ms
+64 bytes from 10.99.2.2: icmp_seq=4 ttl=64 time=18.8 ms
+64 bytes from 10.99.2.2: icmp_seq=5 ttl=64 time=19.2 ms
+
+[root@Pulse_GA_SNC_VM idirect]# ping -c 5 10.99.2.3
+PING 10.99.2.3 (10.99.2.3) 56(84) bytes of data.
+64 bytes from 10.99.2.3: icmp_seq=1 ttl=64 time=32.4 ms
+64 bytes from 10.99.2.3: icmp_seq=2 ttl=64 time=29.0 ms
+64 bytes from 10.99.2.3: icmp_seq=3 ttl=64 time=31.6 ms
+64 bytes from 10.99.2.3: icmp_seq=4 ttl=64 time=28.5 ms
+64 bytes from 10.99.2.3: icmp_seq=5 ttl=64 time=30.7 ms
+
+[root@Pulse_GA_SNC_VM idirect]# ping -c 5 10.99.2.4
+PING 10.99.2.4 (10.99.2.4) 56(84) bytes of data.
+64 bytes from 10.99.2.4: icmp_seq=1 ttl=64 time=42.8 ms
+64 bytes from 10.99.2.4: icmp_seq=2 ttl=64 time=37.4 ms
+64 bytes from 10.99.2.4: icmp_seq=3 ttl=64 time=37.2 ms
+64 bytes from 10.99.2.4: icmp_seq=4 ttl=64 time=43.8 ms
+64 bytes from 10.99.2.4: icmp_seq=5 ttl=64 time=39.0 ms
+
+[root@Pulse_GA_SNC_VM idirect]# ping -c 5 10.99.2.5
+PING 10.99.2.5 (10.99.2.5) 56(84) bytes of data.
+64 bytes from 10.99.2.5: icmp_seq=1 ttl=64 time=48.2 ms
+64 bytes from 10.99.2.5: icmp_seq=2 ttl=64 time=52.2 ms
+64 bytes from 10.99.2.5: icmp_seq=3 ttl=64 time=48.1 ms
+64 bytes from 10.99.2.5: icmp_seq=4 ttl=64 time=46.6 ms
+64 bytes from 10.99.2.5: icmp_seq=5 ttl=64 time=54.6 ms
+
+[root@Pulse_GA_SNC_VM idirect]# ping -c 5 10.99.2.6
+PING 10.99.2.6 (10.99.2.6) 56(84) bytes of data.
+64 bytes from 10.99.2.6: icmp_seq=1 ttl=64 time=57.9 ms
+64 bytes from 10.99.2.6: icmp_seq=2 ttl=64 time=62.8 ms
+64 bytes from 10.99.2.6: icmp_seq=3 ttl=64 time=55.2 ms
+64 bytes from 10.99.2.6: icmp_seq=4 ttl=64 time=64.8 ms
+64 bytes from 10.99.2.6: icmp_seq=5 ttl=64 time=56.0 ms
+
+

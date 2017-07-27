@@ -1,0 +1,20 @@
+curl -XDELETE 'localhost:9200/cars?pretty'
+curl -XPOST 'localhost:9200/cars/transactions/_bulk?pretty' -H 'Content-Type: application/json' -d'
+{ "index": {}}
+{ "price" : 10000, "color" : 2, "make" : 1, "sold" : "2014-10-28" }
+{ "index": {}}
+{ "price" : 20000, "color" : 3, "make" : 2, "sold" : "2014-11-05" }
+{ "index": {}}
+{ "price" : 30000, "color" : 3, "make" : 3, "sold" : "2014-05-18" }
+{ "index": {}}
+{ "price" : 15000, "color" : 3, "make" : 2, "sold" : "2014-07-02" }
+{ "index": {}}
+{ "price" : 12000, "color" : 2, "make" : 4, "sold" : "2014-08-19" }
+{ "index": {}}
+{ "price" : 20000, "color" : 4, "make" : 3, "sold" : "2014-11-05" }
+{ "index": {}}
+{ "price" : 80000, "color" : 1, "make" : 2, "sold" : "2014-01-01" }
+{ "index": {}}
+{ "price" : 25000, "color" : 2, "make" : 1, "sold" : "2014-02-12" }
+'
+

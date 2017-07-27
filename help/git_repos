@@ -1,0 +1,28 @@
+git clone ssh://sbandi@pioneer-dev11/home/sbandi/sbandi_git_repo
+
+------------------------------------------------------------
+We will use prajasena1@users.noreply.github.com when performing web-based Git operations and sending email on your behalf. If you want command line Git operations to use your private email you must set your email in Git.
+
+git clone git://git.debian.org/git/bash-completion/bash-completion.git
+
+git clone -b master https://github.com/torvalds/linux
+
+------------------
+
+Python code snippets https://github.com/websbydrew/TestPython
+
+------------------
+ansible examples
+   git clone -b develop https://github.com/ansible/ansible-examples
+
+https://github.com/ktbyers
+    ansible stuff
+
+------------------
+
+https://github.com/igfuw/libcloudphxx
+
+------------------
+
+git clone ssh://git@github.com/prajasena1/sbandi_linux_work
+
