@@ -54,6 +54,7 @@ namespace MonsterGame
         if (!infile)
         {
             std::cerr << "Failed to open file " << map_file <<  strerror(errno) << std::endl;
+            return false;
         }
 
         std::string line;

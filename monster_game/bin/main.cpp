@@ -11,10 +11,16 @@ void print_usage(char * name)
     std::cout << "Please supply number of monsters to play the game" << std::endl;
 }
 
-static const char * MAP_FILE_ARG = "-map_file";
-static const char * NUM_MONSTERS = "-num_mon";
-static const char * DEBUG_LEVEL = "-debug";
-static const char * NUM_ITERS = "-num_iter";
+namespace
+{
+    // file scope vars
+    // cmd line args
+    const char * MAP_FILE_ARG = "-map_file";
+    const char * NUM_MONSTERS = "-num_mon";
+    const char * DEBUG_LEVEL = "-debug";
+    const char * NUM_ITERS = "-num_iter";
+}
+
 int main(int argc, char *argv[])
 {
     if (argc < 2)

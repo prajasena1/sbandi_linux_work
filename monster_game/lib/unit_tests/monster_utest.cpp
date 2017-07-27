@@ -23,7 +23,6 @@ namespace MonsterGame
         }
 
         friend class MonsterControllerTestCases;
-
     };
 
     class MonsterControllerTestCases : public ::testing::Test

@@ -50,9 +50,6 @@ namespace MonsterGame
     class MonsterController
     {
         public:
-            /// Monster type indentified by Number
-            using LocalMonster = Monster <int>;
-            using MonsterListIter = std::list<Monster <int>>::iterator;
             // FIXME if there is no need of sharing of MapData, better use composition
             // make map_data as member object instead of getting reference
             MonsterController(MapData & map_data, int num_monsters);
@@ -61,6 +58,10 @@ namespace MonsterGame
             void Play(const int max_iter = 10000, const int debug_level = 0);
 
         protected:
+            /// Monster type indentified by Number
+            using LocalMonster = Monster <int>;
+            using MonsterListIter = std::list<Monster <int>>::iterator;
+
             // monster commander's unexposed controls
 
             // check how many of monsters in live action
