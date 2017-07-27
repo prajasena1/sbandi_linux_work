@@ -1,0 +1,8 @@
+*.d
+*.a
+*.o
+*.so
+*.so.*
+monster_game/bin/mongame
+monster_game/lib/unit_tests/mongame_utest
+monster_game/lib/unit_tests/report.xml
