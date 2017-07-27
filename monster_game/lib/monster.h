@@ -60,7 +60,7 @@ namespace MonsterGame
         protected:
             /// Monster type indentified by Number
             using LocalMonster = Monster <int>;
-            using MonsterListIter = std::list<Monster <int>>::iterator;
+            using MonsterListIter = std::list<LocalMonster>::iterator;
 
             // monster commander's unexposed controls
 
@@ -71,9 +71,10 @@ namespace MonsterGame
             // all monsters will make a random move
             int MoveAhead(const int debug_level=0);
 
-            //Monsters eneded-up in same location fight with each other
+            //Monsters eneded-up in same location after above random move will fight with each other
             void Fight();
 
+            // helper functions for printing the status - mainly useful during testing/debugging
             void PrintCurrentPosition() const;
             void PrintEndSummary(const size_t num_start_places, const size_t num_start_monsters) const;
             void PrintSummary() const;
@@ -83,7 +84,7 @@ namespace MonsterGame
             //As a commander of monsters, need to have precious resources (MapData)
             MapData &                       m_map_data;
             // list so that we can store iterators for later use mainly to delete the monsters after fight
-            std::list<Monster <int>>        m_monsters_in_action;
+            std::list<LocalMonster>         m_monsters_in_action;
             // multimap for getting the count of monsters endedup in same place after random move
             std::multimap<std::string, MonsterListIter> m_destination_loc;
     };

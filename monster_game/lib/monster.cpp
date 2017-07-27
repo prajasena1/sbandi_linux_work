@@ -136,7 +136,7 @@ namespace MonsterGame
                      ++same_key_itor)
                 {
                     msg_out << " " << same_key_itor->second->GetId();
-                    // Monster die
+                    // Monster die here on this battlefield so clear from list
                     m_monsters_in_action.erase(same_key_itor->second);
                 }
                 msg_out << "!";
