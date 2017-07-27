@@ -66,7 +66,8 @@ namespace MonsterGame
             void ClearInRoute(const std::string &location, const std::string &place_to_be_destroyed);
 
             //accessed during immutable methods
-            mutable std::default_random_engine      m_rand_gen_engine;
+            //mutable std::default_random_engine      m_rand_gen_engine;
+            mutable std::default_random_engine      m_rand_gen_engine {std::random_device{}()};
         private:
             // key location name
             // value: see location_outward_direction_t

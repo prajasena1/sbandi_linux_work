@@ -103,6 +103,7 @@ namespace MonsterGame
         {
             std::string from_loc = itor->GetLocation();
             std::string destination;
+            // Check MapData to find surrounding location when a monster goes in random direction from his/her current place
             if (m_map_data.MakeRandomMove(from_loc, destination))
             {
                 if (debug_level) std::cout << itor->GetId() << " moved from " << from_loc << " to " << destination << "\n";
@@ -113,6 +114,7 @@ namespace MonsterGame
             }
             else
             {
+                // there is no any outward direction so monster just stuck in place whose surrounding places are destroyed
                 m_monsters_in_action.erase(itor++);
             }
         }

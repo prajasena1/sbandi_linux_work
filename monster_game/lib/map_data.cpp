@@ -268,9 +268,15 @@ namespace MonsterGame
             return false;
         }
 
-        std::uniform_int_distribution<int> dist(0, num_outroutes_from_this_place-1);
-        // m_rand_gen_engine may changed but MapData state is unchanged
-        int move_direction = dist(m_rand_gen_engine);
+        int move_direction = 0;
+        //random selection of outward direction only when more than one route is avialble
+        if (num_outroutes_from_this_place > 1)
+        {
+            std::uniform_int_distribution<int> dist(0, num_outroutes_from_this_place-1);
+            // m_rand_gen_engine may changed but MapData state is unchanged
+            move_direction = dist(m_rand_gen_engine);
+        }
+
         //std::cout << "num_outroutes_from_this_place" << num_outroutes_from_this_place << " random direction " << move_direction << std::endl;
         int i = 0;
         for (auto & surrounding_location : loc_info)
