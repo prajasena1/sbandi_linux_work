@@ -356,20 +356,15 @@ namespace MonsterGame
         for (auto &kv : m_map_data)
         {
             auto &loc = kv.second;
-            bool num_out_routes(false);
             for (size_t i = 0;
                  i < loc.size();
                  ++i)
             {
                 if (!loc[i].empty())
                 {
-                    num_out_routes = true;
+                    ++num_places;
                     break;
                 }
-            }
-            if (num_out_routes)
-            {
-                ++num_places;
             }
         }
         return num_places;
