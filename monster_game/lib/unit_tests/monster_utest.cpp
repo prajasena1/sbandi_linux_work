@@ -1,10 +1,12 @@
 #include <gtest/gtest.h>
+#include <fstream>
 #include "../map_data.h"
 #include "../monster.h"
 
 namespace
 {
     const std::string           g_map_file_for_test = "../../map.txt";
+    const std::string           g_map_out_file = "/tmp/left_over_map_utest.txt";
     const size_t                g_num_valid_places = 6763;
     const int                   g_num_monsters = 100;
     MonsterGame::MapData        g_map_data;
@@ -83,5 +85,17 @@ namespace MonsterGame
     TEST_F(MonsterControllerTestCases, PlayTest)
     {
         PlayTest();
+    }
+
+    TEST(ProduceLeftoverMap, ProduceLeftoverMap)
+    {
+        g_map_data.PrintCurrentMap(g_map_out_file);
+
+        std::ifstream infile(g_map_out_file);
+        EXPECT_EQ(1, infile.is_open());
+
+        // get file_length of file:
+        infile.seekg (0, std::ios::end);
+        EXPECT_GT(infile.tellg(), 100);
     }
 }

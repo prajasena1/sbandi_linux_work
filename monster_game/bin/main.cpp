@@ -16,6 +16,7 @@ namespace
     // file scope vars
     // cmd line args
     const char * MAP_FILE_ARG = "-map_file";
+    const char * OUT_MAP_FILE = "-out_map";
     const char * NUM_MONSTERS = "-num_mon";
     const char * DEBUG_LEVEL = "-debug";
     const char * NUM_ITERS = "-num_iter";
@@ -34,6 +35,7 @@ int main(int argc, char *argv[])
     int debug_level = 0;
     int num_iters = 10000;
     std::string map_file_loc;
+    std::string out_map_file;
     for ( int i = 1; i < argc; ++i )
     {
         if ( !strcasecmp(argv[i], MAP_FILE_ARG) )
@@ -46,6 +48,11 @@ int main(int argc, char *argv[])
             ++i;
             std::istringstream cmdline_str(argv[i]);
             cmdline_str >> num_monsters;
+        }
+        else if (!strcasecmp(argv[i], OUT_MAP_FILE))
+        {
+            ++i;
+            out_map_file = std::string(argv[i]);
         }
         ///useful for dev/test
         else if (!strcasecmp(argv[i], DEBUG_LEVEL))
@@ -76,6 +83,11 @@ int main(int argc, char *argv[])
         num_iters = 10000;
     }
 
+    if (out_map_file.empty())
+    {
+        out_map_file = "/tmp/leftover_map.txt";
+    }
+
     std::cout << "Playing the game with " << num_monsters << " monsters" << std::endl;
 
     // get map data
@@ -91,6 +103,9 @@ int main(int argc, char *argv[])
 
     //play
     commander.Play(10000, debug_level);
+
+    //produce leftover map
+    map_data.PrintCurrentMap(out_map_file);
 
     return 0;
 }

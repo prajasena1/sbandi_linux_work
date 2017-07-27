@@ -19,13 +19,13 @@ namespace MonsterGame
         switch (val)
         {
             case DIR_NORTH:
-                return "DIR_NORTH";
+                return "north";
             case DIR_SOUTH:
-                return "DIR_SOUTH";
+                return "south";
             case DIR_EAST:
-                return "DIR_EAST";
+                return "east";
             case DIR_WEST:
-                return "DIR_WEST";
+                return "west";
             default:
                 return "UNHANDLED_DIRECTION";
         }
@@ -310,6 +310,69 @@ namespace MonsterGame
         //std::cout << "position of random place " << n << std::endl;
         auto itor = std::next(m_map_data.begin(), n);
         return itor->first;
+    }
+
+    // expected line format PlaceName outward_direction=SurroundingPlaceName ...
+    // Example : Denalmo north=Agixo-A south=Amolusnisnu east=Elolesme west=Migina
+    void MapData::PrintCurrentMap(const std::string &map_output_file) const
+    {
+        std::ofstream outfile(map_output_file);
+        if (!outfile)
+        {
+            std::cerr << "Failed to open file " << map_output_file <<  strerror(errno) << std::endl;
+            return;
+        }
+
+        for (auto &kv : m_map_data)
+        {
+            auto &loc = kv.second;
+            std::ostringstream outward_dirs;
+            for (size_t i = 0;
+                 i < loc.size();
+                 ++i)
+            {
+                if (!loc[i].empty())
+                {
+                    if (!outward_dirs.str().empty())
+                    {
+                        outward_dirs << " ";
+                    }
+                    outward_dirs << GetDirStr(static_cast<Direction>(i)) << "=" << loc[i];
+                }
+            }
+            if (!outward_dirs.str().empty())
+            {
+                outfile << kv.first << " " << outward_dirs.str() << std::endl;
+            }
+        }
+        outfile.close();
+
+        std::cout << "Left over map is saved into file " << map_output_file << std::endl;
+    }
+
+    size_t  MapData::GetNumPlaces() const
+    {
+        size_t num_places(0);
+        for (auto &kv : m_map_data)
+        {
+            auto &loc = kv.second;
+            bool num_out_routes(false);
+            for (size_t i = 0;
+                 i < loc.size();
+                 ++i)
+            {
+                if (!loc[i].empty())
+                {
+                    num_out_routes = true;
+                    break;
+                }
+            }
+            if (num_out_routes)
+            {
+                ++num_places;
+            }
+        }
+        return num_places;
     }
 
 } // end namespace MonsterGame
