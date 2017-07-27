@@ -141,6 +141,7 @@ namespace MonsterGame
                 }
                 msg_out << "!";
 
+                // location is destroyed so take it out from map and all inroutes to it
                 m_map_data.DestroyLocation(fight_location);
 
                 // print the message

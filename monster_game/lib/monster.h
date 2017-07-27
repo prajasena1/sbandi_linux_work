@@ -81,7 +81,9 @@ namespace MonsterGame
         private:
             //As a commander of monsters, need to have precious resources (MapData)
             MapData &                       m_map_data;
+            // list so that we can store iterators for later use mainly to delete the monsters after fight
             std::list<Monster <int>>        m_monsters_in_action;
+            // multimap for getting the count of monsters endedup in same place after random move
             std::multimap<std::string, MonsterListIter> m_destination_loc;
     };
 

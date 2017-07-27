@@ -70,6 +70,11 @@ namespace MonsterGame
         private:
             // key location name
             // value: see location_outward_direction_t
+            // hap table of fixed size arrays - no insertions after delete so works good
+            // value type array for gaining performance with cache locality of reference
+            // value type map/hash array can be choice but they bring lot of overhead.
+            // They always uses heap. array is best choice here based on theory
+            // FIXME capture the performance measure in different runs
             std::unordered_map<std::string, location_outward_direction_t> m_map_data;
     };
 
