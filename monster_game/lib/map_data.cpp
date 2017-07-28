@@ -208,9 +208,8 @@ namespace MonsterGame
             }
             else if (surrounding_location == place_to_be_destroyed)
             {
+                --num_outroutes_from_this_place;
                 surrounding_location.clear();
-                // Assumption - only one inroute exists from one place to other place
-                break;
             }
         }
 
@@ -348,26 +347,6 @@ namespace MonsterGame
         outfile.close();
 
         std::cout << "Left over map is saved into file " << map_output_file << std::endl;
-    }
-
-    size_t  MapData::GetNumPlaces() const
-    {
-        size_t num_places(0);
-        for (auto &kv : m_map_data)
-        {
-            auto &loc = kv.second;
-            for (size_t i = 0;
-                 i < loc.size();
-                 ++i)
-            {
-                if (!loc[i].empty())
-                {
-                    ++num_places;
-                    break;
-                }
-            }
-        }
-        return num_places;
     }
 
 } // end namespace MonsterGame

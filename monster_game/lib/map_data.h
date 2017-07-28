@@ -55,7 +55,7 @@ namespace MonsterGame
             // if failed to move (because no outward routes) indicate by returning false
             bool MakeRandomMove(const std::string &from_location, std::string &destination) const;
 
-            size_t  GetNumPlaces() const;
+            size_t  GetNumPlaces() const { return m_map_data.size(); }
 
             bool IsDataExists() const { return !m_map_data.empty(); }
 
