@@ -12,6 +12,12 @@
 
 #include "map_data.h"
 
+namespace
+{
+    const std::string g_place_delim(" ");
+    const std::string g_dir_delim("=");
+}
+
 namespace MonsterGame
 {
     std::string GetDirStr(Direction val)
@@ -80,14 +86,13 @@ namespace MonsterGame
     bool MapData::AddLocation(const std::string &line, bool debug)
     {
         std::string copy_line(line);
+        copy_line += g_place_delim;
         std::string place;
         location_outward_direction_t loc_info;
 
         size_t pos = 0;
-        const std::string place_delim(" ");
-        const std::string dir_delim("=");
         if (debug) std::cout << "processing line " << copy_line << std::endl;
-        while ((pos = copy_line.find(place_delim)) != std::string::npos)
+        while ((pos = copy_line.find(g_place_delim)) != std::string::npos)
         {
             if (place.empty())
             {
@@ -99,7 +104,7 @@ namespace MonsterGame
                 std::string outward_dir = copy_line.substr(0, pos);
                 if (debug) std::cout << "extracted dir " << outward_dir << std::endl;
 
-                size_t dir_delim_pos = outward_dir.find(dir_delim);
+                size_t dir_delim_pos = outward_dir.find(g_dir_delim);
                 if (dir_delim_pos == std::string::npos)
                 {
                     std::cerr << "input data not in expected format line "  << copy_line << std::endl;
@@ -107,7 +112,7 @@ namespace MonsterGame
                 }
 
                 std::string dir_str = outward_dir.substr(0, dir_delim_pos);
-                std::string dir_place = outward_dir.substr(dir_delim_pos+dir_delim.length());
+                std::string dir_place = outward_dir.substr(dir_delim_pos+g_dir_delim.length());
                 if (debug) std::cout << "extracted " << dir_str << " " << dir_place << std::endl;
 
                 enum Direction dir = GetDirEnum(dir_str);
@@ -118,7 +123,7 @@ namespace MonsterGame
                 }
                 loc_info[dir] = dir_place;
             }
-            copy_line.erase(0, pos + place_delim.length());
+            copy_line.erase(0, pos + g_place_delim.length());
             if (debug) std::cout << "now copy_line " << copy_line << std::endl;
         }
         m_map_data.emplace(place, loc_info);
@@ -334,14 +339,14 @@ namespace MonsterGame
                 {
                     if (!outward_dirs.str().empty())
                     {
-                        outward_dirs << " ";
+                        outward_dirs << g_place_delim;
                     }
-                    outward_dirs << GetDirStr(static_cast<Direction>(i)) << "=" << loc[i];
+                    outward_dirs << GetDirStr(static_cast<Direction>(i)) << g_dir_delim << loc[i];
                 }
             }
             if (!outward_dirs.str().empty())
             {
-                outfile << kv.first << " " << outward_dirs.str() << std::endl;
+                outfile << kv.first << g_place_delim << outward_dirs.str() << std::endl;
             }
         }
         outfile.close();

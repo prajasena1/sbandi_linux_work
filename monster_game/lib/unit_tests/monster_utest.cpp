@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <fstream>
+#include <algorithm>
 #include "../map_data.h"
 #include "../monster.h"
 
@@ -72,9 +73,45 @@ namespace MonsterGame
             MonsterControllerUTest   m_monster_controller;
     };
 
+    void ReadFileContent(const std::string & file, std::vector<std::string> &content)
+    {
+        std::ifstream infile(file);
+        std::string line;
+        while (std::getline(infile, line))
+        {
+            if (!line.empty())
+            {
+                content.push_back(line);
+            }
+        }
+    }
+
     TEST(MapSetup, MapSetup)
     {
         EXPECT_EQ(1, g_map_data.LoadData(g_map_file_for_test));
+    }
+
+    // test to verify map file read, preparation of data struct
+    // and out file
+    TEST(VerifyMapInOut, VerifyMapInOut)
+    {
+        std::vector<std::string>    original_map_content;
+        std::vector<std::string>    written_map_content;
+
+        g_map_data.PrintCurrentMap(g_map_out_file);
+
+        ReadFileContent(g_map_file_for_test, original_map_content);
+        ReadFileContent(g_map_out_file, written_map_content);
+
+        EXPECT_EQ(original_map_content.size(), written_map_content.size());
+
+        std::sort(original_map_content.begin(), original_map_content.end());
+        std::sort(written_map_content.begin(), written_map_content.end());
+
+        EXPECT_EQ(original_map_content.size(), written_map_content.size());
+
+        // input and output must match
+        EXPECT_EQ(1, (original_map_content == written_map_content));
     }
 
     TEST_F(MonsterControllerTestCases, SetupTest)
