@@ -29,6 +29,10 @@ namespace MonsterGame
                num_start_monsters = GetLiveMonsterCount();
 
         int iter(0);
+        // Already placed monsters at random locations as part constructor
+        Fight();
+        ++iter;
+
         // main work loop
         while (iter < max_iter && MoveAhead(debug_level))
         {

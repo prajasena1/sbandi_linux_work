@@ -47,6 +47,7 @@ namespace MonsterGame
             std::string         m_current_location;
     };
 
+    // Entity representing Evil Overlord
     class MonsterController
     {
         public:
