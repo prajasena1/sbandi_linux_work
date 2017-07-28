@@ -17,6 +17,9 @@ namespace MonsterGame
         {
             // setup monster and set them on random place on map
             m_monsters_in_action.emplace_back(i, m_map_data.GetRandomLocation());
+            auto itor = m_monsters_in_action.end();
+            --itor;
+            m_destination_loc.emplace(itor->GetLocation(), itor);
         }
     }
 
@@ -29,17 +32,15 @@ namespace MonsterGame
                num_start_monsters = GetLiveMonsterCount();
 
         int iter(0);
-        // Already placed monsters at random locations as part constructor
-        Fight();
-        ++iter;
 
         // main work loop
-        while (iter < max_iter && MoveAhead(debug_level))
+        do
         {
             Fight();
             ++iter;
             PrintIterSummary(debug_level, iter);
         }
+        while (iter < max_iter && MoveAhead(debug_level));
 
         //show end positions
         PrintEndSummary(num_start_places, num_start_monsters);
