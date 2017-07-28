@@ -11,10 +11,12 @@ TARGETAR	= libmongame.a
 all: $(SOURCES) $(TARGETSO) $(TARGETAR)
 
 $(TARGETSO): $(OBJECTS) 
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	@echo "----- Building shared lib: $@"
+	$(CC) $(LDFLAGS) $^ -o $@
 
 $(TARGETAR): $(OBJECTS) 
-	ar rcs $(TARGETAR) $(OBJECTS)
+	@echo "----- Building static lib: $@"
+	ar rcs $@ $^
 
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@

@@ -12,6 +12,7 @@ TARGET		= mongame
 all: $(SOURCES) $(TARGET)
 
 $(TARGET): $(OBJECTS) $(DEP_LIB)
+	@echo "----- Building $@"
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
 
 .cpp.o:

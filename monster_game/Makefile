@@ -1,6 +1,5 @@
 DIRS= lib bin
 
-
 all: libs
 
 libs:
