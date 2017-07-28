@@ -5,12 +5,6 @@
 #include "../lib/map_data.h"
 #include "../lib/monster.h"
 
-void print_usage(char * name)
-{
-    std::cout << "Usage : " << name << " -map_file map_file_location -num_mon number_of_monsters \n";
-    std::cout << "Please supply number of monsters to play the game" << std::endl;
-}
-
 namespace
 {
     // file scope vars
@@ -20,6 +14,16 @@ namespace
     const char * NUM_MONSTERS = "-num_mon";
     const char * DEBUG_LEVEL = "-debug";
     const char * NUM_ITERS = "-num_iter";
+    const char * default_leftover_map_file = "/tmp/leftover_map.txt";
+}
+
+void print_usage(char * name)
+{
+    std::cout << "Usage : " << name << " -map_file map_file_location -num_mon number_of_monsters [-out_map file_location]\n"
+              << "-map_file : file location with expected map format\n"
+              << "-num_mon : Please supply number of monsters you want to unleash to destroy the map\n"
+              << "-out_map : file where left over map is written after the end of game. DEFAULT to " << default_leftover_map_file
+              << std::endl;
 }
 
 int main(int argc, char *argv[])
@@ -68,6 +72,11 @@ int main(int argc, char *argv[])
             std::istringstream cmdline_str(argv[i]);
             cmdline_str >> num_iters;
         }
+        else
+        {
+            print_usage(argv[0]);
+            return 1;
+        }
     }
 
     // verify cmd line args
@@ -85,7 +94,7 @@ int main(int argc, char *argv[])
 
     if (out_map_file.empty())
     {
-        out_map_file = "/tmp/leftover_map.txt";
+        out_map_file = default_leftover_map_file;
     }
 
     std::cout << "Playing the game with " << num_monsters << " monsters" << std::endl;

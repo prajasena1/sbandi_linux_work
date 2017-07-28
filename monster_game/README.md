@@ -20,15 +20,17 @@ cd bin
 ## Design
 
 ##### MonsterGame::MapData
-loads and handles all operations that are needed with map/locations
+Entity to represent map containing the names of cities in the non-existent world.
 * Provides interface to user 
+    * load the map from text file
     * get random location on map
     * make a random move from a location
 
 ##### MonsterGame::Monster
-each individual monster will have one instance of this class
+Each individual monster will have one instance of this class
 
 ##### MonsterGame::MonsterController
+Entity representing Evil Overlord.
 * must have a `MonsterGame::MapData`. Without it, it can't function.
 * will setup asked number of Monster objects and initializes them on random locations of map.
 * Main method of Play is provided
