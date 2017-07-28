@@ -11,6 +11,7 @@ namespace
     const size_t                g_num_valid_places = 6763;
     const int                   g_num_monsters = 100;
     MonsterGame::MapData        g_map_data;
+    std::vector<std::string>    g_original_map_content;
 }
 
 namespace MonsterGame
@@ -91,27 +92,28 @@ namespace MonsterGame
         EXPECT_EQ(1, g_map_data.LoadData(g_map_file_for_test));
     }
 
-    // test to verify map file read, preparation of data struct
+    // Compare original map versus left over before any fight (destruction)
+    // Purpose: test to verify map file read, preparation of data struct
     // and out file
     TEST(VerifyMapInOut, VerifyMapInOut)
     {
-        std::vector<std::string>    original_map_content;
         std::vector<std::string>    written_map_content;
 
         g_map_data.PrintCurrentMap(g_map_out_file);
 
-        ReadFileContent(g_map_file_for_test, original_map_content);
+        ReadFileContent(g_map_file_for_test, g_original_map_content);
         ReadFileContent(g_map_out_file, written_map_content);
 
-        EXPECT_EQ(original_map_content.size(), written_map_content.size());
+        // leftover map must have same number of places than original map
+        EXPECT_EQ(g_original_map_content.size(), written_map_content.size());
 
-        std::sort(original_map_content.begin(), original_map_content.end());
+        std::sort(g_original_map_content.begin(), g_original_map_content.end());
         std::sort(written_map_content.begin(), written_map_content.end());
 
-        EXPECT_EQ(original_map_content.size(), written_map_content.size());
+        EXPECT_EQ(g_original_map_content.size(), written_map_content.size());
 
-        // input and output must match
-        EXPECT_EQ(1, (original_map_content == written_map_content));
+        // sorted leftover map must match with sorted original map
+        EXPECT_EQ(1, (g_original_map_content == written_map_content));
     }
 
     TEST_F(MonsterControllerTestCases, SetupTest)
@@ -124,15 +126,27 @@ namespace MonsterGame
         PlayTest();
     }
 
+    // Compare original map versus left over
     TEST(ProduceLeftoverMap, ProduceLeftoverMap)
     {
+        // save current leftover map
         g_map_data.PrintCurrentMap(g_map_out_file);
 
-        std::ifstream infile(g_map_out_file);
-        EXPECT_EQ(1, infile.is_open());
+        std::vector<std::string>    written_map_content;
+        ReadFileContent(g_map_out_file, written_map_content);
 
-        // get file_length of file:
-        infile.seekg (0, std::ios::end);
-        EXPECT_GT(infile.tellg(), 100);
+        // leftover map must have less number of places than original map
+        EXPECT_LT(written_map_content.size(), g_original_map_content.size());
+
+        std::sort(written_map_content.begin(), written_map_content.end());
+        // sorted leftover map must not match with sorted original map
+        EXPECT_EQ(0, (g_original_map_content == written_map_content));
+    }
+
+    // Verify leftovermap can reused
+    TEST(ReuseLeftoverMap, ReuseLeftoverMap)
+    {
+        MonsterGame::MapData        map_data;
+        EXPECT_EQ(1, map_data.LoadData(g_map_out_file));
     }
 }

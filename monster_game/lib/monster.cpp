@@ -44,8 +44,6 @@ namespace MonsterGame
 
         //show end positions
         PrintEndSummary(num_start_places, num_start_monsters);
-        PrintSummary();
-        PrintCurrentPosition();
     }
 
     void MonsterController::PrintIterSummary(const int debug_level, const int iter) const
@@ -72,7 +70,9 @@ namespace MonsterGame
         std::cout << "Total number of places destroyed " << COLOR_RED << num_start_places-m_map_data.GetNumPlaces() << COLOR_DEFAULT
             << "\nTotal number of monsters unleashed at the start " << num_start_monsters
             << "\nnumber of monsters perished or stuck in places without any outroute " << COLOR_RED << num_start_monsters-GetLiveMonsterCount() << COLOR_DEFAULT
-            << "\n";
+            << std::endl;
+        PrintSummary();
+        PrintCurrentPosition();
     }
 
     void MonsterController::PrintSummary() const

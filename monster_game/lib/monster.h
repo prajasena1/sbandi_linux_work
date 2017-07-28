@@ -53,6 +53,8 @@ namespace MonsterGame
         public:
             // FIXME if there is no need of sharing of MapData, better use composition
             // make map_data as member object instead of getting reference
+            // Adv of passing as ref: Design For Testability (DFT)
+            // MapData object as outside to this class, provides ability to test thoroughly
             MonsterController(MapData & map_data, int num_monsters);
 
             // interface to the player
