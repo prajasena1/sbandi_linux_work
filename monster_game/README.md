@@ -54,6 +54,19 @@ By default, `10,000` iterations are performed.
 * To alter the iterations, `-num_iter N` can be supplied
 * For debugging or testing in depth, `-debug 1|2` can be supplied
 
+### Test time measurement (Performance)
+Unit test MapSetup.MapSetup shows that its consistently came as 13 ms (On RHEL VM Intel(R) Xeon(R) CPU X5660 @2.80GHz) for loading the map and presetup.
+Unit test MonsterControllerTestCases.PlayTest provides measurement of actual play.
+Unit test program accepts cmd line args `-num_mon N` and `-num_iter N` so that we can measure play time for varying number of iterations and monsters.
+
+For 10K iterations and 1000 monsters - play is rougly taking 110 ms (On RHEL VM).
+
+Follow below steps to measure time for varying number of iterations and monsters.
+```
+cd monster_game/lib/unit_tests
+./mongame_utest --gtest_filter=*MapSetup*:*PlayTest* -num_iter 10000 -num_mon 1000
+```
+
 ## Scope for improvement
 * Enabling parallel random move of monsters can be achieved by using thread pool
 

@@ -4,12 +4,14 @@
 #include "../map_data.h"
 #include "../monster.h"
 
+extern int g_num_iter;
+extern int g_num_monsters;
+
 namespace
 {
     const std::string           g_map_file_for_test = "../../map.txt";
     const std::string           g_map_out_file = "/tmp/left_over_map_utest.txt";
     const size_t                g_num_valid_places = 6763;
-    const int                   g_num_monsters = 100;
     MonsterGame::MapData        g_map_data;
     std::vector<std::string>    g_original_map_content;
 }
@@ -59,7 +61,7 @@ namespace MonsterGame
             {
                 size_t start_num_places = g_map_data.GetNumPlaces();
                 // Check to see if at least one place is destroyed
-                for (int i = 0; i < 100; ++i)
+                for (int i = 0; i < g_num_iter; ++i)
                 {
                     m_monster_controller.MoveAhead();
                     m_monster_controller.Fight();
