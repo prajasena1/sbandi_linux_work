@@ -11,11 +11,6 @@
 #include <random>
 #include <chrono>
 
-namespace
-{
-    const int max_num_out_routes = 4;
-}
-
 namespace MonsterGame
 {
     enum Direction
@@ -24,7 +19,7 @@ namespace MonsterGame
         DIR_SOUTH,
         DIR_EAST,
         DIR_WEST,
-        DIR_UNHANDLED
+        DIR_MAX
     };
 
     std::string GetDirStr(Direction val);
@@ -36,7 +31,7 @@ namespace MonsterGame
         public:
             // value : array of 4 elements. 0th element indicates the name of place in DIR_NORTH,
             //          1st element indicates the name of place in DIR_SOUTH, etc. see enum Direction
-            using location_outward_direction_t =  std::array<std::string, max_num_out_routes>;
+            using location_outward_direction_t =  std::array<std::string, DIR_MAX>;
 
             MapData()
                 : m_rand_gen_engine(std::chrono::system_clock::now().time_since_epoch().count())

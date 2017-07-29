@@ -1,7 +1,7 @@
-Design and Implementation by S Bandi
-===================================
+OO Design and Implementation by S Bandi
+======================================
 
-## How to build
+## How to build and test
 GCC C++ compiler `g++` version 4.8.5 is used with option `-std=c++11`
 If compiler supports switch `-std=c++14` - its better to use.
 
@@ -11,13 +11,26 @@ Execute below make commands for building and executing unit tests from directory
 gtest (Google Unit Test) rpm is required for executing unit tests.
 * make test
 
-For playing the game with `100` monsters - follow below steps
+Some of the tests depends on entropy of randomness of machine.
+If the failed test related to randomnes, please re-run the tests.
+
+##### Command line args
+
 ```
-cd bin
-./mongame -map_file ../map.txt -num_mon 100
+Usage : ./bin/mongame -map_file map_file_location -num_mon number_of_monsters [-out_map file_location]
+-map_file : file location with expected map format
+-num_mon : Please supply number of monsters you want to unleash to destroy the map
+-out_map : file where left over map is written after the end of game. DEFAULT to /tmp/leftover_map.txt
 ```
 
-## Design
+For playing the game with `100` monsters - follow below steps
+```
+./bin/mongame -map_file map.txt -num_mon 100
+```
+
+**Note**: Play can resumed from left over map by providing the `-map_file /tmp/leftover_map.txt`
+
+## Class Design
 
 ##### MonsterGame::MapData
 Entity to represent map containing the names of cities in the non-existent world.
@@ -42,6 +55,5 @@ By default, `10,000` iterations are performed.
 * For debugging or testing in depth, `-debug 1|2` can be supplied
 
 ## Scope for improvement
-* more unit tests for good coverage
 * Enabling parallel random move of monsters can be achieved by using thread pool
 

@@ -48,7 +48,7 @@ namespace MonsterGame
         auto itor = dir_map.find(dir);
         if (itor == dir_map.end())
         {
-            return DIR_UNHANDLED;
+            return DIR_MAX;
         }
 
         return itor->second;
@@ -116,7 +116,7 @@ namespace MonsterGame
                 if (debug) std::cout << "extracted " << dir_str << " " << dir_place << std::endl;
 
                 enum Direction dir = GetDirEnum(dir_str);
-                if (dir == DIR_UNHANDLED)
+                if (dir == DIR_MAX)
                 {
                     std::cerr << "Invalid direction " << dir_str  << " from line  " << copy_line << std::endl;
                     return false;
@@ -159,7 +159,7 @@ namespace MonsterGame
                 {
                     std::cout << dir_matches[1] <<  " dir " << dir_matches[2] << std::endl;
                     enum Direction dir = GetDirEnum(dir_matches[1]);
-                    if (dir == DIR_UNHANDLED)
+                    if (dir == DIR_MAX)
                     {
                         std::cerr << "Invalid direction " << out_dir_string  << " from line  " << copy_line << std::endl;
                         return false;
@@ -204,7 +204,7 @@ namespace MonsterGame
         }
 
         location_outward_direction_t & loc_info = itor->second;
-        int num_outroutes_from_this_place = max_num_out_routes;
+        int num_outroutes_from_this_place = DIR_MAX;
         for (auto & surrounding_location : loc_info)
         {
             if (surrounding_location.empty())
@@ -235,7 +235,7 @@ namespace MonsterGame
         }
 
         const location_outward_direction_t & loc_info = itor->second;
-        int num_outroutes_from_this_place = max_num_out_routes;
+        int num_outroutes_from_this_place = DIR_MAX;
         for (auto & surrounding_location : loc_info)
         {
             if (surrounding_location.empty())
@@ -256,7 +256,7 @@ namespace MonsterGame
         }
 
         const location_outward_direction_t & loc_info = itor->second;
-        int num_outroutes_from_this_place = max_num_out_routes;
+        int num_outroutes_from_this_place = DIR_MAX;
         for (auto & surrounding_location : loc_info)
         {
             if (surrounding_location.empty())
