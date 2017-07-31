@@ -1750,7 +1750,38 @@ printf '%50s' "right-justified-test50width"
 #repeat a character n times
 printf '=%.0s' {1..100}; echo
 ------------------------------------------
+find memory usage inside process
+Solutions
+    Combination (on older linux) : sysinfo, /proc/self/status
+    Read /proc/self/stat /proc/self/status
+    or install procps-devel.x86_64 and use readymade interface to /proc : readproc
+    or POSIX getrusage
+
+Detailed Usage of getrusage in live product:
+http://www.squid-cache.org/ source tools.cc
+Local copy: /home/sbandi/testcode/stl_container_mem_tests/tools.cc
 ------------------------------------------
+Malloc allocations
+On Linux mallinfo from glibc
+struct mallinfo : uordblks and hblkhd members of this struct contains the dynamically allocated address space used by the program including book-keeping overhead.
+if you take the difference of this before and after each malloc() call, you will know the amount of space used by that call. (The overhead is not necessarily constant for every call to malloc()).
+
+char *myChar;
+size_t s = sizeof(char);
+struct mallinfo before, after;
+int mused;
+
+before = mallinfo();
+myChar = malloc(s);
+after = mallinfo();
+
+mused = (after.uordblks - before.uordblks) + (after.hblkhd - before.hblkhd);
+
+printf("Requested size %zu, used space %d, overhead %zu\n", s, mused, mused - s);
+
+Detailed Usage of mallinfo in live product:
+http://www.squid-cache.org/  source tools.cc
+Local copy: /home/sbandi/testcode/stl_container_mem_tests/tools.cc
 ------------------------------------------
 ------------------------------------------
 END_UNIX_CMD_HELP_FILE
