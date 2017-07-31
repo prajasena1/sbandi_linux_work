@@ -16,17 +16,17 @@ $(TARGET): $(OBJECTS) $(DEP_LIB)
 	@echo "----- Building unit test executable $@"
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
 
--include $(DEP_INC)
-
-%.d: $(SOURCES)
+%.d: %.cpp
 	@$(CPP) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
 
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
 
+-include $(DEP_INC)
+
 .PHONY: clean test
 clean:
-	rm -rf $(OBJECTS) $(TARGET) report.xml
+	rm -f $(OBJECTS) $(TARGET) report.xml
 	rm -f $(DEP_INC)
 
 test: all

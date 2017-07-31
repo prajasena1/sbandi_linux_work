@@ -5,6 +5,7 @@ LDFLAGS		= -shared
 SOURCES		= $(shell echo *.cpp)
 INCLUDES	= -I.
 OBJECTS		= $(SOURCES:.cpp=.o)
+DEP_INC		= $(SOURCES:.cpp=.d)
 TARGETSO	= libmongame.so
 TARGETAR	= libmongame.a
 
@@ -18,9 +19,15 @@ $(TARGETAR): $(OBJECTS)
 	@echo "----- Building static lib: $@"
 	ar rcs $@ $^
 
+%.d: %.cpp
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
+
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
 
+-include $(DEP_INC)
+
 .PHONY: clean
 clean:
-	rm -rf $(OBJECTS) $(TARGETSO) $(TARGETAR)
+	rm -f $(OBJECTS) $(TARGETSO) $(TARGETAR)
+	rm -f $(DEP_INC)

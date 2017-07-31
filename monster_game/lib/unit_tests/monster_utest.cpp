@@ -115,7 +115,7 @@ namespace MonsterGame
         EXPECT_EQ(g_original_map_content.size(), written_map_content.size());
 
         // sorted leftover map must match with sorted original map
-        EXPECT_EQ(1, (g_original_map_content == written_map_content));
+        EXPECT_EQ(g_original_map_content, written_map_content);
     }
 
     TEST_F(MonsterControllerTestCases, SetupTest)
@@ -142,7 +142,7 @@ namespace MonsterGame
 
         std::sort(written_map_content.begin(), written_map_content.end());
         // sorted leftover map must not match with sorted original map
-        EXPECT_EQ(0, (g_original_map_content == written_map_content));
+        EXPECT_NE(g_original_map_content, written_map_content);
     }
 
     // Verify leftovermap can reused
