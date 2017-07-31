@@ -11,3 +11,8 @@ Andhra Pradesh 516421, India
 Fields beside road Paluru-Kovvur road
 Andhra Pradesh 516421, India
 14.515809, 78.324190
+
+
+Mandli
+Andhra Pradesh, India
+13.981101, 77.517619

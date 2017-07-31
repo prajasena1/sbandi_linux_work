@@ -5,6 +5,7 @@ LDFLAGS		= -L../lib -Bdynamic -lpthread
 SOURCES		= main.cpp
 INCLUDES	= -I../lib
 OBJECTS		= $(SOURCES:.cpp=.o)
+DEP_INC		= $(SOURCES:.cpp=.d)
 DEP_LIB		= ../lib/libmongame.a
 LIBS		= -Bstatic $(DEP_LIB)
 TARGET		= mongame
@@ -15,9 +16,15 @@ $(TARGET): $(OBJECTS) $(DEP_LIB)
 	@echo "----- Building $@"
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
 
+-include $(DEP_INC)
+
+%.d: $(SOURCES)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
+
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
 
 .PHONY: clean
 clean:
 	rm -rf $(OBJECTS) $(TARGET)
+	rm -f $(DEP_INC)

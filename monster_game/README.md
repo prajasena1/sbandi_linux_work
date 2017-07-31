@@ -55,11 +55,13 @@ By default, `10,000` iterations are performed.
 * For debugging or testing in depth, `-debug 1|2` can be supplied
 
 ### Test time measurement (Performance)
-Unit test MapSetup.MapSetup shows that its consistently came as 13 ms (On RHEL VM Intel(R) Xeon(R) CPU X5660 @2.80GHz) for loading the map and presetup.
+Unit test MapSetup.MapSetup shows that its consistently takes 13 ms (On RHEL VM Intel(R) Xeon(R) CPU X5660 @2.80GHz) for loading the map and presetup.
+
 Unit test MonsterControllerTestCases.PlayTest provides measurement of actual play.
+
 Unit test program accepts cmd line args `-num_mon N` and `-num_iter N` so that we can measure play time for varying number of iterations and monsters.
 
-For 10K iterations and 1000 monsters - play is rougly taking 110 ms (On RHEL VM).
+For 10K iterations and 1000 monsters - play is rougly taking 95 ms (On RHEL VM).
 
 Follow below steps to measure time for varying number of iterations and monsters.
 ```

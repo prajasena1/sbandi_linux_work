@@ -5,6 +5,7 @@ LDFLAGS		= -L../lib -L /usr/lib64/gtest -Bdynamic -lpthread -lgtest
 SOURCES		= $(shell echo *.cpp)
 INCLUDES	= -I..
 OBJECTS		= $(SOURCES:.cpp=.o)
+DEP_INC		= $(SOURCES:.cpp=.d)
 DEP_LIB		= ../libmongame.a
 LIBS		= -Bstatic $(DEP_LIB)
 TARGET		= mongame_utest
@@ -15,12 +16,18 @@ $(TARGET): $(OBJECTS) $(DEP_LIB)
 	@echo "----- Building unit test executable $@"
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
 
+-include $(DEP_INC)
+
+%.d: $(SOURCES)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
+
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
 
 .PHONY: clean test
 clean:
 	rm -rf $(OBJECTS) $(TARGET) report.xml
+	rm -f $(DEP_INC)
 
 test: all
 	./$(TARGET) --gtest_output="xml:report.xml"

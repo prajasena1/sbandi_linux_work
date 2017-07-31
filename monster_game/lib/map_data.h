@@ -69,9 +69,9 @@ namespace MonsterGame
         private:
             // key location name
             // value: see location_outward_direction_t
-            // hap table of fixed size arrays - no insertions after delete so works good
+            // Hash table of fixed size arrays - no insertions after delete so no worry of rehashing and reconstruction overhead.
             // value type array for gaining performance with cache locality of reference
-            // array of short strings containing places so SSO (Short String Optimization) ensures no seperate heap allocations.
+            // array of short strings for names of places in different directions so SSO (Short String Optimization) ensures no seperate heap allocations.
             // value type map/hash array can be choice but they bring lot of overhead.
             // They always uses heap. array is best choice here based on theory
             // FIXME capture the performance measure in different runs

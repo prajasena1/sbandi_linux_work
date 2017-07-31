@@ -28,7 +28,7 @@ namespace MonsterGame
         std::cout << COLOR_RED << "Start the play\n" << COLOR_DEFAULT;
         PrintSummary();
         PrintCurrentPosition();
-        size_t num_start_places = m_map_data.GetNumPlaces(),
+        const size_t num_start_places = m_map_data.GetNumPlaces(),
                num_start_monsters = GetLiveMonsterCount();
 
         int iter(0);
